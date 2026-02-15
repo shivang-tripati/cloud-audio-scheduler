@@ -1,0 +1,108 @@
+
+// const mockUsers = [
+//   {
+//     id: "u1",
+//     email: "amit@jewelnova.com",
+//     name: "Amit Kumar",
+//     role: "SUPER_ADMIN",
+//     is_active: true,
+//     created_at: "2024-01-01T10:00:00Z",
+//   },
+//   {
+//     id: "u2",
+//     email: "priya@jewelnova.com",
+//     name: "Priya Sharma",
+//     role: "STORE_MANAGER",
+//     is_active: true,
+//     created_at: "2024-01-02T10:00:00Z",
+//   },
+// ]
+
+// const mockBranches = [
+//   {
+//     id: "b1",
+//     name: "Mumbai Central",
+//     branch_code: "MUM-01",
+//     city: "Mumbai",
+//     state: "Maharashtra",
+//     region: "West",
+//     created_at: "2024-01-01T10:00:00Z",
+//   },
+//   {
+//     id: "b2",
+//     name: "Delhi Saket",
+//     branch_code: "DEL-01",
+//     city: "Delhi",
+//     state: "Delhi",
+//     region: "North",
+//     created_at: "2024-01-02T10:00:00Z",
+//   },
+// ]
+
+// const mockDevices = [
+//   {
+//     id: "d1",
+//     device_code: "DEV-001",
+//     branch_id: "b1",
+//     status: "ONLINE",
+//     last_seen: new Date().toISOString(),
+//     created_at: "2024-01-01T10:00:00Z",
+//   },
+//   {
+//     id: "d2",
+//     device_code: "DEV-002",
+//     branch_id: "b2",
+//     status: "ONLINE",
+//     last_seen: new Date().toISOString(),
+//     created_at: "2024-01-02T10:00:00Z",
+//   },
+// ]
+
+// const mockSchedules = [
+//   {
+//     id: "s1",
+//     schedule_type: "DAILY_PRAYER",
+//     play_time: "06:30:00",
+//     audio_id: "a1",
+//     target_region: "all",
+//     is_active: true,
+//     priority: 1,
+//     created_at: "2024-01-01T10:00:00Z",
+//   },
+//   {
+//     id: "s2",
+//     schedule_type: "CUSTOM",
+//     play_time: "12:00:00",
+//     audio_id: "a2",
+//     target_region: "West",
+//     is_active: true,
+//     priority: 2,
+//     created_at: "2024-01-02T10:00:00Z",
+//   },
+// ]
+
+// const mockAudio = [
+//   {
+//     id: "a1",
+//     filename: "daily_prayer.mp3",
+//     mime_type: "audio/mpeg",
+//     duration_seconds: 120,
+//     upload_date: "2024-01-01T10:00:00Z",
+//   },
+//   {
+//     id: "a2",
+//     filename: "announcement.mp3",
+//     mime_type: "audio/mpeg",
+//     duration_seconds: 60,
+//     upload_date: "2024-01-02T10:00:00Z",
+//   },
+// ]
+
+// async function getMockData<T>(endpoint: string, _options?: FetchOptions): Promise<ApiResponse<T>> {
+//   if (endpoint === "users") return { success: true, data: mockUsers as T }
+//   if (endpoint === "branches") return { success: true, data: mockBranches as T }
+//   if (endpoint === "devices") return { success: true, data: mockDevices as T }
+//   if (endpoint === "schedules") return { success: true, data: mockSchedules as T }
+//   if (endpoint === "audio") return { success: true, data: mockAudio as T }
+//   return { success: true, data: [] as T }
+// }

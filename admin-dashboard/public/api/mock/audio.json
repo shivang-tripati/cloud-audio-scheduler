@@ -1,0 +1,34 @@
+{
+  "audio": [
+    {
+      "id": "audio-001",
+      "title": "Subah Ki Aarti",
+      "audio_type": "PRAYER",
+      "language": "Hindi",
+      "duration_seconds": 420,
+      "file_url": "/audio/subah-ki-aarti.mp3",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": "audio-002",
+      "title": "Evening Prayer",
+      "audio_type": "PRAYER",
+      "language": "English",
+      "duration_seconds": 300,
+      "file_url": "/audio/evening-prayer.mp3",
+      "created_at": "2024-01-16T10:00:00Z",
+      "updated_at": "2024-01-16T10:00:00Z"
+    },
+    {
+      "id": "audio-003",
+      "title": "Diwali Special Announcement",
+      "audio_type": "FESTIVAL",
+      "language": "Hindi",
+      "duration_seconds": 180,
+      "file_url": "/audio/diwali-announcement.mp3",
+      "created_at": "2024-01-18T10:00:00Z",
+      "updated_at": "2024-01-18T10:00:00Z"
+    }
+  ]
+}

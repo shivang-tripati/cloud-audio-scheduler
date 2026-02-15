@@ -1,0 +1,159 @@
+"use client"
+
+import { AlertDialogFooter } from "@/components/ui/alert-dialog"
+
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import type { Branch } from "@/lib/types"
+import { getCurrentUser } from "@/lib/auth"
+import { getBranches, createBranch, updateBranch, deleteBranch } from "@/lib/api-client"
+import { BranchesTable } from "@/components/tables/branches-table"
+import { BranchModal } from "@/components/modals/branch-modal"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import { useToast } from "@/hooks/use-toast"
+
+export default function BranchesPage() {
+  const router = useRouter()
+  const { toast } = useToast()
+  const [branches, setBranches] = useState<Branch[]>([])
+  const [loading, setLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null)
+  const [deleteConfirm, setDeleteConfirm] = useState(false)
+  const [branchToDelete, setBranchToDelete] = useState<Branch | null>(null)
+
+  useEffect(() => {
+    const user = getCurrentUser()
+    if (!user) {
+      router.push("/login")
+      return
+    }
+    setCurrentUser(user)
+    loadBranches()
+  }, [router])
+
+  const loadBranches = async () => {
+    try {
+      setLoading(true)
+      const res = await getBranches()
+      if (res.success && res.data) {
+        setBranches(res.data)
+      }
+    } catch (error) {
+      toast({ title: "Error", description: "Failed to load branches", variant: "destructive" })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSaveBranch = async (formData: Partial<Branch>) => {
+    try {
+      setLoading(true)
+      let res
+      if (selectedBranch) {
+        res = await updateBranch(selectedBranch.id, formData)
+      } else {
+        res = await createBranch(formData)
+      }
+
+      if (res.success) {
+        toast({ title: "Success", description: selectedBranch ? "Branch updated successfully" : "Branch created successfully" })
+        await loadBranches()
+      } else {
+        toast({ title: "Error", description: res.error?.message || "Failed to save branch", variant: "destructive" })
+      }
+      setSelectedBranch(null)
+    } catch (error) {
+      toast({ title: "Error", description: "Failed to save branch", variant: "destructive" })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDeleteBranch = async () => {
+    if (!branchToDelete) return
+
+    try {
+      setLoading(true)
+      const res = await deleteBranch(branchToDelete.id)
+
+      if (res.success) {
+        toast({ title: "Success", description: "Branch deleted successfully" })
+        await loadBranches()
+      } else {
+        toast({ title: "Error", description: res.error?.message || "Failed to delete branch", variant: "destructive" })
+      }
+      setBranchToDelete(null)
+      setDeleteConfirm(false)
+    } catch (error) {
+      toast({ title: "Error", description: "Failed to delete branch", variant: "destructive" })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Branches Management</h1>
+        <p className="text-muted-foreground mt-2">Manage retail branch locations</p>
+      </div>
+
+      <BranchesTable
+        branches={branches}
+        currentUserRole={currentUser?.role || ""}
+        onEdit={(branch) => {
+          setSelectedBranch(branch)
+          setModalOpen(true)
+        }}
+        onDelete={(branch) => {
+          setBranchToDelete(branch)
+          setDeleteConfirm(true)
+        }}
+        onCreateNew={() => {
+          setSelectedBranch(null)
+          setModalOpen(true)
+        }}
+        loading={loading}
+      />
+
+      <BranchModal
+        open={modalOpen}
+        branch={selectedBranch}
+        onOpenChange={setModalOpen}
+        onSave={handleSaveBranch}
+        loading={loading}
+      />
+
+      <AlertDialog open={deleteConfirm} onOpenChange={setDeleteConfirm}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Branch</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete {branchToDelete?.name}? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteBranch}
+              disabled={loading}
+              className="bg-destructive hover:bg-destructive/90"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  )
+}

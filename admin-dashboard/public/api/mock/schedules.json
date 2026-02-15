@@ -1,0 +1,43 @@
+{
+  "schedules": [
+    {
+      "id": "schedule-001",
+      "title": "Daily Morning Prayer",
+      "audio_id": "audio-001",
+      "schedule_type": "DAILY_PRAYER",
+      "priority": 1,
+      "time": "06:00",
+      "target_type": "ALL",
+      "target_value": null,
+      "is_active": true,
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": "schedule-002",
+      "title": "Diwali Announcement",
+      "audio_id": "audio-003",
+      "schedule_type": "FESTIVAL",
+      "priority": 2,
+      "time": "10:00",
+      "target_type": "REGION",
+      "target_value": "West",
+      "is_active": true,
+      "created_at": "2024-01-18T10:00:00Z",
+      "updated_at": "2024-01-18T10:00:00Z"
+    },
+    {
+      "id": "schedule-003",
+      "title": "Store Opening Announcement",
+      "audio_id": "audio-002",
+      "schedule_type": "DAILY",
+      "priority": 3,
+      "time": "09:30",
+      "target_type": "BRANCH",
+      "target_value": "branch-001",
+      "is_active": true,
+      "created_at": "2024-01-20T10:00:00Z",
+      "updated_at": "2024-01-20T10:00:00Z"
+    }
+  ]
+}

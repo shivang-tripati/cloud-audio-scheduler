@@ -1,0 +1,37 @@
+{
+  "branches": [
+    {
+      "id": "branch-001",
+      "branch_code": "JN-MUM-01",
+      "name": "Mumbai Central",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "region": "West",
+      "is_active": true,
+      "created_at": "2024-01-10T10:00:00Z",
+      "updated_at": "2024-01-10T10:00:00Z"
+    },
+    {
+      "id": "branch-002",
+      "branch_code": "JN-DEL-01",
+      "name": "Delhi Premium",
+      "city": "Delhi",
+      "state": "Delhi",
+      "region": "North",
+      "is_active": true,
+      "created_at": "2024-01-12T10:00:00Z",
+      "updated_at": "2024-01-12T10:00:00Z"
+    },
+    {
+      "id": "branch-003",
+      "branch_code": "JN-BNG-01",
+      "name": "Bangalore Tech",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "region": "South",
+      "is_active": true,
+      "created_at": "2024-01-14T10:00:00Z",
+      "updated_at": "2024-01-14T10:00:00Z"
+    }
+  ]
+}

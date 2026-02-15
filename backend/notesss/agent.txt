@@ -1,0 +1,57 @@
+function shouldTrigger(schedule, now) {
+  if (!schedule.is_active) return false;
+
+  if (schedule.mode === 'DAILY') {
+    return now.time === schedule.play_time;
+  }
+
+  if (schedule.mode === 'DATE_RANGE') {
+    return (
+      now.date >= schedule.start_date &&
+      now.date <= schedule.end_date &&
+      now.time === schedule.play_time
+    );
+  }
+
+  if (schedule.mode === 'ONCE') {
+    return now >= schedule.play_at && !schedule.alreadyPlayed;
+  }
+}
+
+for (let i = 0; i < schedule.play_count; i++) {
+  await playAudio();
+}
+
+
+
+
+
+// 
+def _create_default_config(self):
+    return {
+        "device_uuid": str(uuid.uuid4()),
+        "branch_id": None,
+        "server_url": "http://127.0.0.1:5000",
+        "token": None
+    }
+
+
+if not self.config.token:
+    device_code = input("Enter Device Code: ").strip()
+
+    res = requests.post(
+        f"{self.config.server_url}/api/device/activate",
+        json={
+            "device_code": device_code,
+            "device_uuid": self.config.device_uuid
+        }
+    )
+
+    if res.status_code != 200:
+        raise Exception(res.json().get("message"))
+
+    data = res.json()
+    self.config.update_server_settings(
+        token=data["token"],
+        branch_id=data["branch_id"]
+    )

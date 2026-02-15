@@ -1,0 +1,27 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_cas_db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    restart: unless-stopped
+    environment:
+      # Set your desired root password here
+      MYSQL_ROOT_PASSWORD: dbpass
+      # Create an initial database named 'caas_db'
+      MYSQL_DATABASE: cloud_audio_scheduler
+    ports:
+      # Map the container's 3306 port to your host machine's 3306 port
+      - "3306:3306"
+    volumes:
+      # Persistent storage for your database data
+      - db_data:/var/lib/mysql
+      # Mount the schema file so the container can access it
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+volumes:
+  db_data:
+    driver: local
