@@ -32,7 +32,28 @@ export interface Branch {
   updated_at: string
 }
 
+// ─────────────────────────────────────────────────────────────
+// ADD THESE TO YOUR EXISTING lib/types.ts
+// ─────────────────────────────────────────────────────────────
 
+export interface PlaylistItem {
+  id: number
+  branch_id: number
+  audio_id: number
+  order_index: number
+  is_active: boolean
+  created_at: string
+  updated_at: string
+  audio: {
+    id: number
+    title: string
+    audio_type: "PRAYER" | "FESTIVAL" | "DAILY" | "OTHER"
+    file_url: string
+    duration_seconds: number
+    language: string
+    is_active: boolean
+  }
+}
 
 // Device types
 export type DeviceStatus = "ONLINE" | "OFFLINE"

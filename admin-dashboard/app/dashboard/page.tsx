@@ -10,6 +10,7 @@ import { useLiveDevices } from "@/hooks/use-live-devices";
 import LiveBranches from "@/components/ui/live-branches";
 import StatCard from "@/components/ui/stat-card";
 import DeviceRow from "@/components/ui/device-row";
+import DeviceMonitor from "@/components/ui/device-monitor";
 
 interface DashboardStats {
   totalBranches: number;
@@ -88,14 +89,14 @@ export default function DashboardPage() {
         </div>
 
         <div className="flex items-center gap-4 bg-card border px-4 py-3 rounded-2xl shadow-sm self-start lg:self-center">
-          <div className="relative flex h-3 w-3">
+          {/* <div className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-          </div>
-          <div className="flex flex-col">
+          </div> */}
+          {/* <div className="flex flex-col">
             <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground leading-none">System Status</span>
             <span className="text-sm font-bold text-green-600">All Systems Operational</span>
-          </div>
+          </div> */}
         </div>
       </header>
 
@@ -130,7 +131,7 @@ export default function DashboardPage() {
       </div>
 
       {/* 3. BRANCH MONITORING (The 3-Column Grid Layout) */}
-      <section className="space-y-6">
+      {/* <section className="space-y-6">
         <div className="flex items-center justify-between border-b border-muted pb-4">
           <div className="flex items-center gap-3">
             <ListMusic className="w-6 h-6 text-primary" />
@@ -141,24 +142,12 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Branch internal component now handles 1, 2, or 3 columns internally as we built */}
         <div className="w-full">
           <LiveBranches />
         </div>
-      </section>
+      </section> */}
 
-      {/* 4. REAL-TIME LOGS (Detailed List) */}
-      <section className="bg-muted/30 rounded-3xl border border-muted/60 p-6 md:p-8">
-        <div className="flex items-center gap-2 mb-8">
-          <Activity className="w-5 h-5 text-primary" />
-          <h2 className="text-xl font-bold">Live Device Log Feed</h2>
-        </div>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-          {liveDevices.map((d) => (
-            <DeviceRow key={d.device_id} device={d} />
-          ))}
-        </div>
-      </section>
+      <DeviceMonitor liveDevices={liveDevices} />
 
     </div>
   );

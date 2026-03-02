@@ -1,23 +1,54 @@
+"use client";
+
+import { useEffect, useState, useMemo } from "react";
+import { getBranches } from "@/lib/api-client";
 import { useLiveDevices } from "./use-live-devices";
-import { DeviceStatusUpdate } from "@/lib/types";
 
 export function useLiveBranches() {
-    const devices = useLiveDevices();
 
-    const branches = new Map<number, {
-        branch: DeviceStatusUpdate["branch"];
-        devices: DeviceStatusUpdate[];
-    }>();
+    const [branches, setBranches] = useState<any[]>([]);
+    const liveDevices = useLiveDevices();
 
-    devices.forEach(device => {
-        if (!branches.has(device.branch_id)) {
-            branches.set(device.branch_id, {
-                branch: device.branch,
+    useEffect(() => {
+
+        getBranches().then(res => {
+
+            setBranches(res.data || []);
+
+        });
+
+    }, []);
+
+    return useMemo(() => {
+
+        const map: Record<number, any> = {};
+
+        branches.forEach(branch => {
+
+            map[branch.id] = {
+
+                branch,
+
                 devices: []
-            });
-        }
-        branches.get(device.branch_id)!.devices.push(device);
-    });
 
-    return Array.from(branches.values());
+            };
+
+        });
+
+
+        // SAFE iteration
+        liveDevices.forEach(device => {
+
+            if (map[device.branch_id]) {
+
+                map[device.branch_id].devices.push(device);
+
+            }
+
+        });
+
+        return Object.values(map);
+
+    }, [branches, liveDevices]);
+
 }

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { sequelize, testConnection } = require('./config/database');
+const playlistEmitter = require('./emiters/playlistemitter');
 
 
 const http = require('http');
@@ -7,19 +8,25 @@ const { Server } = require('socket.io');
 const app = require('./app');
 
 
+
 const server = http.createServer(app);
 
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: process.env.CORS_ORIGIN,
     methods: ["GET", "POST"],
+    credentials: true
   },
 })
 
 require('./socket')(io);
 
-
+// ── PlaylistEmitter init ──
+// Must happen AFTER io is created.
+// This gives playlistEmitter its io reference so
+// controllers can call playlistEmitter.toBranch(id) from anywhere.
+playlistEmitter.init(io)
 
 const PORT = process.env.PORT || 3000;
 

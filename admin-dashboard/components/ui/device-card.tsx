@@ -1,5 +1,4 @@
-
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
     Monitor,
     Music,
@@ -10,51 +9,84 @@ import { Slider } from "@/components/ui/slider";
 import {
     updateDeviceVolume
 } from "@/lib/api-client";
-import debounce from "lodash/debounce"
+import debounce from "lodash/debounce";
 
 
 export default function DeviceCard({ device }: any) {
 
-    const [volume, setVolume] = useState(device.volume);
+    console.log("Render:", device.current_audio, device.volume);
+
+    const [localVolume, setLocalVolume] = useState<number | null>(null);
+
+    // Use localVolume for instant UI, otherwise server volume
+    const volume = localVolume ?? device.volume ?? 0;
+
+
+    // ✅ FIX 1: Always clear localVolume when server volume changes
+    useEffect(() => {
+        setLocalVolume(null);
+    }, [device.volume]);
+
 
     const isOnline = device.status === "ONLINE";
 
     const isPlaying = device.current_state === "PLAYING";
 
 
-    const debouncedUpdate = useMemo(() =>
-        debounce(async (vol: number) => {
+    // ✅ FIX 2: Proper debounce creation
+    const debouncedUpdate = useMemo(() => {
 
-            await updateDeviceVolume(device.device_id, vol)
+        const fn = debounce(async (vol: number) => {
 
-        }, 400)
-        , [device.device_id])
+            await updateDeviceVolume(device.device_id, vol);
+
+        }, 400);
+
+        return fn;
+
+    }, [device.device_id]);
+
+
+    // ✅ FIX 3: Cleanup debounce on unmount
+    useEffect(() => {
+
+        return () => {
+
+            debouncedUpdate.cancel();
+
+        };
+
+    }, [debouncedUpdate]);
+
 
     function handleChange(value: number[]) {
 
-        const vol = value[0]
+        const vol = value[0];
 
-        setVolume(vol)
+        setLocalVolume(vol);
 
-        debouncedUpdate(vol)
-
-    }
-
-    async function handleMute() {
-
-        setVolume(0);
-
-        await updateDeviceVolume(device.device_id, 0);
+        debouncedUpdate(vol);
 
     }
 
 
+    // ✅ FIX 4: Use debounce here also (do NOT call API directly)
+    function handleMute() {
+
+        setLocalVolume(0);
+
+        debouncedUpdate(0);
+
+    }
 
 
 
     return (
 
-        <div key={device.device_id} className={`border rounded-lg p-3 ${!isOnline && "opacity-50"}`}>
+        <div
+            key={device.device_id}
+            className={`border rounded-lg p-3 ${!isOnline && "opacity-50"}`}
+        >
 
             {/* Header */}
 
@@ -73,7 +105,11 @@ export default function DeviceCard({ device }: any) {
                 </div>
 
 
-                <span className={`text-xs font-bold ${isOnline ? "text-green-600" : "text-red-500"
+                <span className={`text-xs font-bold ${isOnline
+
+                        ? "text-green-600"
+
+                        : "text-red-500"
 
                     }`}>
 
@@ -84,15 +120,21 @@ export default function DeviceCard({ device }: any) {
             </div>
 
 
+
             {/* Current audio */}
 
             <div className="flex items-center gap-2 text-xs mb-3">
 
                 <Music size={14} />
 
-                {isPlaying ? device.current_audio : "Idle"}
+                {isPlaying
+
+                    ? device.current_audio
+
+                    : "Idle"}
 
             </div>
+
 
 
             {/* Volume */}
@@ -144,55 +186,15 @@ export default function DeviceCard({ device }: any) {
             </div>
 
 
+
             {/* Controls */}
 
             <div className="flex gap-2 mt-3">
 
-                {/* <button
-
-                    onClick={handlePlay}
-
-                    disabled={!isOnline}
-
-                    className="control-btn"
-
-                >
-
-                    <Play size={14} />
-
-                </button> */}
-
-
-                {/* <button
-
-                    onClick={handleStop}
-
-                    disabled={!isOnline}
-
-                    className="control-btn"
-
-                >
-
-                    <Square size={14} />
-
-                </button> */}
-
-
-                {/* <button
-
-                    onClick={handleRestart}
-
-                    disabled={!isOnline}
-
-                    className="control-btn text-red-500"
-
-                >
-
-                    <RotateCcw size={14} />
-
-                </button> */}
+                {/* future controls */}
 
             </div>
+
 
         </div>
 

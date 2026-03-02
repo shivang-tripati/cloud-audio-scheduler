@@ -51,6 +51,20 @@ const updateBranchSchema = Joi.object({
   is_active: Joi.boolean()
 }).min(1);
 
+// Playlist Schemas
+const addToPlaylistSchema = Joi.object({
+  audio_id: Joi.number().integer().positive().required()
+});
+
+const reorderPlaylistSchema = Joi.object({
+  items: Joi.array().items(
+    Joi.object({
+      id: Joi.number().integer().positive().required(),
+      order_index: Joi.number().integer().min(0).required()
+    })
+  ).required()
+});
+
 // Device Schemas
 const registerDeviceSchema = Joi.object({
   branch_id: Joi.number().integer().positive().required(),
@@ -194,6 +208,8 @@ module.exports = {
   updateUserSchema,
   createBranchSchema,
   updateBranchSchema,
+  addToPlaylistSchema,
+  reorderPlaylistSchema,
   registerDeviceSchema,
   activateDeviceSchema,
   updateDeviceSchema,

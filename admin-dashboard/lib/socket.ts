@@ -5,5 +5,10 @@ const URL = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3000";
 
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URL, {
     autoConnect: false,
-    withCredentials: true,
+    auth: {
+        token:
+            typeof window !== "undefined"
+                ? JSON.parse(localStorage.getItem("auth_session") || "{}")?.token
+                : null
+    }
 });

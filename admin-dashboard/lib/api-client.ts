@@ -1,5 +1,6 @@
 import type { ApiResponse, ApiError } from "./types"
 import { getSession, clearSession } from "./auth"
+import type { PlaylistItem } from "@/lib/types"
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
@@ -200,6 +201,47 @@ export async function deleteBranch(id: string): Promise<ApiResponse<any>> {
     method: "DELETE",
   })
 }
+
+// GET /api/branches/:branchId/playlist/manage  (admin UI — all items)
+export const getBranchPlaylist = (branchId: string | number) =>
+  apiFetch(`/branches/${branchId}/playlist/manage`)
+
+// POST /api/branches/:branchId/playlist
+export const addToPlaylist = (branchId: string | number, audioId: number) =>
+  apiFetch<{ message: string }>(`/branches/${branchId}/playlist`, {
+    method: "POST",
+    body: JSON.stringify({ audio_id: audioId }),
+  })
+
+// DELETE /api/branches/:branchId/playlist/:itemId
+export const removeFromPlaylist = (branchId: string | number, itemId: number) =>
+  apiFetch<{ message: string }>(`/branches/${branchId}/playlist/${itemId}`, {
+    method: "DELETE",
+  })
+
+// PATCH /api/branches/:branchId/playlist/:itemId/toggle
+export const togglePlaylistItem = (branchId: string | number, itemId: number) =>
+  apiFetch<{ is_active: boolean }>(`/branches/${branchId}/playlist/${itemId}/toggle`, {
+    method: "PATCH",
+  })
+
+// PUT /api/branches/:branchId/playlist/reorder
+export const reorderPlaylist = (
+  branchId: string | number,
+  items: { id: number; order_index: number }[]
+) =>
+  apiFetch<{ message: string }>(`/branches/${branchId}/playlist/reorder`, {
+    method: "PUT",
+    body: JSON.stringify({ items }),
+  })
+
+// DELETE /api/branches/:branchId/playlist/clear
+export const clearPlaylist = (branchId: string | number) =>
+  apiFetch<{ message: string }>(`/branches/${branchId}/playlist/clear`, {
+    method: "DELETE",
+  })
+
+
 
 // Devices APIs
 export async function registerDevice(data: any): Promise<ApiResponse<any>> {

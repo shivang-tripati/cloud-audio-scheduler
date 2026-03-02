@@ -1,4 +1,5 @@
 import type { AuthSession, User, UserRole } from "./types"
+import { socket } from "@/lib/socket"
 
 const SESSION_KEY = "auth_session"
 const SESSION_EXPIRY_KEY = "auth_expiry"

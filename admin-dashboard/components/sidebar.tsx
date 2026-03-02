@@ -30,6 +30,7 @@ export function Sidebar() {
     { label: "Overview", href: "/dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
     { label: "Users", href: "/dashboard/users", icon: <Users className="w-4 h-4" /> },
     { label: "Branches", href: "/dashboard/branches", icon: <Building2 className="w-4 h-4" /> },
+    { label: "Playlist", href: "/dashboard/playlists", icon: <Music className="w-4 h-4" /> },
     { label: "Devices", href: "/dashboard/devices", icon: <Cpu className="w-4 h-4" /> },
     { label: "Audio Library", href: "/dashboard/audio", icon: <Music className="w-4 h-4" /> },
     { label: "Schedules", href: "/dashboard/schedules", icon: <Calendar className="w-4 h-4" /> },
@@ -52,9 +53,8 @@ export function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-sidebar border-r border-sidebar-border flex flex-col transition-transform md:translate-x-0 z-40 ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed left-0 top-0 h-screen w-64 bg-sidebar border-r border-sidebar-border flex flex-col transition-transform md:translate-x-0 z-40 ${open ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="p-6 border-b border-sidebar-border">
           <h1 className="text-lg font-bold text-sidebar-foreground">Jewel Audio</h1>
@@ -68,11 +68,10 @@ export function Sidebar() {
               <Link key={item.href} href={item.href}>
                 <button
                   onClick={() => setOpen(false)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-                    isActive
-                      ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent"
-                  }`}
+                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${isActive
+                    ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent"
+                    }`}
                 >
                   {item.icon}
                   {item.label}

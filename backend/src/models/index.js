@@ -5,7 +5,7 @@ const AudioFile = require('./AudioFile');
 const Schedule = require('./Schedule');
 const ScheduleTarget = require('./ScheduleTarget');
 const { PlaybackLog, DeviceHeartbeat } = require('./PlaybackLog');
-
+const BranchPlaylist = require('./BranchPlaylist');
 // Define Associations
 
 // Branch -> Devices (One-to-Many)
@@ -17,6 +17,22 @@ Branch.hasMany(Device, {
 Device.belongsTo(Branch, {
   foreignKey: 'branch_id',
   as: 'branch'
+});
+
+// Branch <-> AudioFile through BranchPlaylist
+Branch.hasMany(BranchPlaylist, { foreignKey: 'branch_id', as: 'playlist_items' });
+BranchPlaylist.belongsTo(Branch, { foreignKey: 'branch_id', as: 'branch' });
+
+// BranchPlaylist -> AudioFile (CRITICAL FIX)
+AudioFile.hasMany(BranchPlaylist, {
+  foreignKey: 'audio_id',
+  as: 'playlist_items',
+  onDelete: 'CASCADE'
+});
+
+BranchPlaylist.belongsTo(AudioFile, {
+  foreignKey: 'audio_id',
+  as: 'audio'
 });
 
 // AudioFile -> Schedules (One-to-Many)

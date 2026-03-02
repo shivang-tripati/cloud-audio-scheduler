@@ -11,6 +11,7 @@ import { AlertCircle, Loader2 } from "lucide-react"
 import { loginUser } from "@/lib/api-client"
 import { saveSession } from "@/lib/auth"
 import { validateEmail } from "@/lib/validators"
+import { socket } from "@/lib/socket"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -46,6 +47,8 @@ export default function LoginPage() {
           user: user,
           expiresAt: new Date(expiresAt).getTime(),
         })
+        socket.auth = { token }
+        socket.connect()
         router.push("/dashboard")
       } else {
         setError(result.error?.message || "Login failed")

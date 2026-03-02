@@ -3,8 +3,8 @@ import DeviceCard from "./device-card";
 import { Globe } from "lucide-react";
 
 export default function LiveBranches() {
-    const branches = useLiveBranches();
 
+    const branches = useLiveBranches();
     return (
         <div className="w-full">
             {/* THIS IS THE KEY: A grid that wraps the branch sections */}
@@ -29,11 +29,7 @@ export default function LiveBranches() {
 
                         {/* Device Container: Stacks vertically inside the branch card */}
                         <div className="space-y-3">
-                            {b.devices.map((d) => {
-                                return <div key={d.device_id}>
-                                    <DeviceCard device={d} />
-                                </div>
-                            })}
+                            {b.devices.map((d: any) => <DeviceCard key={`${d.device_id}-${d.current_audio}-${d.position_ms}`} device={d} />)}
                         </div>
                     </section>
                 ))}

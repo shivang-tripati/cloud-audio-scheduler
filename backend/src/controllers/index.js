@@ -4,7 +4,8 @@ const branchController = require('./branchController');
 const deviceController = require('./deviceController');
 const audioController = require('./audioController');
 const scheduleController = require('./scheduleController');
-const logController = require('./logController');   
+const logController = require('./logController');
+const playlistController = require('./branchPlaylistController');
 
 module.exports = {
   authController,
@@ -12,6 +13,7 @@ module.exports = {
   deviceController,
   audioController,
   scheduleController,
+  playlistController,
   logController,
   userController
 };
