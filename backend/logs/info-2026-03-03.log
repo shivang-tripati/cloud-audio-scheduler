@@ -1,0 +1,46 @@
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":122905,"status":"PLAYING","timestamp":"2026-03-02T18:30:13.050Z","volume":10}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":126370,"status":"PLAYING","timestamp":"2026-03-02T18:30:16.745Z","volume":10}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":130,"status":"PLAYING","timestamp":"2026-03-02T18:30:17.045Z","volume":10}
+{"level":"info","message":"🌐 Admin dashboard connected","timestamp":"2026-03-02T18:30:22.648Z"}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":40984,"status":"PLAYING","timestamp":"2026-03-02T18:30:58.050Z","volume":10}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":85941,"status":"PLAYING","timestamp":"2026-03-02T18:31:43.053Z","volume":21}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":98481,"status":"PLAYING","timestamp":"2026-03-02T18:31:55.906Z","volume":21}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":130,"status":"PLAYING","timestamp":"2026-03-02T18:31:56.208Z","volume":21}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":31894,"status":"PLAYING","timestamp":"2026-03-02T18:32:28.057Z","volume":21}
+{"level":"info","message":"🌐 Admin User disconnected","timestamp":"2026-03-02T18:33:11.115Z"}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":76825,"status":"PLAYING","timestamp":"2026-03-02T18:33:13.062Z","volume":14}
+{"level":"info","message":"[PlaylistEmitter] Initialized","timestamp":"2026-03-02T18:33:15.199Z"}
+{"level":"info","message":"🔌 Device connected: DEV-000001-001 (branch: 1)","timestamp":"2026-03-02T18:33:17.956Z"}
+{"level":"info","message":"📻 Sent playlist to DEV-000001-001 — 2 tracks","timestamp":"2026-03-02T18:33:18.003Z"}
+{"level":"info","message":"[PlaylistEmitter] Initialized","timestamp":"2026-03-02T18:37:44.198Z"}
+{"level":"info","message":"🔌 Device connected: DEV-000001-001 (branch: 1)","timestamp":"2026-03-02T18:38:03.259Z"}
+{"level":"info","message":"📻 Sent playlist to DEV-000001-001 — 2 tracks","timestamp":"2026-03-02T18:38:03.345Z"}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":-1,"status":"PLAYING","timestamp":"2026-03-02T18:38:03.379Z","volume":14}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":0,"status":"PLAYING","timestamp":"2026-03-02T18:38:03.698Z","volume":14}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":3865,"status":"PLAYING","timestamp":"2026-03-02T18:38:09.938Z","volume":14}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":49084,"status":"PLAYING","timestamp":"2026-03-02T18:38:54.959Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":94038,"status":"PLAYING","timestamp":"2026-03-02T18:39:39.964Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":98560,"status":"PLAYING","timestamp":"2026-03-02T18:39:44.931Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":0,"status":"PLAYING","timestamp":"2026-03-02T18:39:45.234Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":39577,"status":"PLAYING","timestamp":"2026-03-02T18:40:24.951Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":84509,"status":"PLAYING","timestamp":"2026-03-02T18:41:09.963Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":126364,"status":"PLAYING","timestamp":"2026-03-02T18:41:51.984Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":130,"status":"PLAYING","timestamp":"2026-03-02T18:41:52.289Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":2584,"status":"PLAYING","timestamp":"2026-03-02T18:41:54.960Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":47802,"status":"PLAYING","timestamp":"2026-03-02T18:42:39.963Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":92758,"status":"PLAYING","timestamp":"2026-03-02T18:43:24.966Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":98467,"status":"PLAYING","timestamp":"2026-03-02T18:43:31.118Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":180,"status":"PLAYING","timestamp":"2026-03-02T18:43:31.419Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":38581,"status":"PLAYING","timestamp":"2026-03-02T18:44:09.970Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":83511,"status":"PLAYING","timestamp":"2026-03-02T18:44:54.973Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":126264,"status":"PLAYING","timestamp":"2026-03-02T18:45:38.173Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":0,"status":"PLAYING","timestamp":"2026-03-02T18:45:38.479Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":1460,"status":"PLAYING","timestamp":"2026-03-02T18:45:39.976Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":46391,"status":"PLAYING","timestamp":"2026-03-02T18:46:24.980Z","volume":9}
+{"audio_id":2,"current_audio":"Diwali Promo","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":91323,"status":"PLAYING","timestamp":"2026-03-02T18:47:09.983Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":98467,"status":"PLAYING","timestamp":"2026-03-02T18:47:17.298Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":0,"status":"PLAYING","timestamp":"2026-03-02T18:47:17.599Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":37432,"status":"PLAYING","timestamp":"2026-03-02T18:47:54.987Z","volume":9}
+{"audio_id":1,"current_audio":"Morning Prayer","level":"info","message":"💓 Heartbeat from DEV-000001-001:","mode":"PLAYLIST","position_ms":82363,"status":"PLAYING","timestamp":"2026-03-02T18:48:39.990Z","volume":9}
+{"level":"info","message":"📡 Agent DEV-000001-001 went OFFLINE","timestamp":"2026-03-02T18:49:12.472Z"}
+{"level":"info","message":"[PlaylistEmitter] Initialized","timestamp":"2026-03-02T19:25:13.665Z"}
