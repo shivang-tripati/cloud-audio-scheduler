@@ -14,10 +14,30 @@ const app = express();
 app.use(helmet());
 
 // CORS
+app.set('trust proxy', 1); // important behind Traefik
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : [];
+
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : '*',
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow non-browser requests (like agents, curl)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// VERY IMPORTANT for preflight
+app.options('*', cors());
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -34,8 +54,10 @@ app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
-
-app.use('/api/', limiter); // Apply only to API routes
+app.use('/api', (req, res, next) => {
+  if (req.method === 'OPTIONS') return next(); // Skip preflight
+  return limiter(req, res, next);
+});
 
 // Logging
 if (process.env.NODE_ENV === 'development') {
