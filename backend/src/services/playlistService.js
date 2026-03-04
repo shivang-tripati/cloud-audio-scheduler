@@ -84,7 +84,7 @@ class PlaylistService {
 
             audio_type: item.audio.audio_type,
 
-            file_url: item.audio.file_url,
+            file_url: `${process.env.BASE_URL || 'http://127.0.0.1:3000'}/${item.audio.file_url}`,
 
             duration: item.audio.duration_seconds,
 
