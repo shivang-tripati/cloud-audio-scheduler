@@ -1,4 +1,4 @@
-name: cas-server
+version: "3.9"
 
 services:
   api-service:
@@ -8,45 +8,35 @@ services:
     restart: unless-stopped
     expose:
       - "3000"
+    env_file:
+      - .env
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cas-router.rule=Host(`api.redio.radhakrishnajewellery.in`)"
-      - "traefik.http.routers.cas-router.service=cas-service"
-      - "traefik.http.services.cas-service.loadbalancer.server.port=3000"
       - "traefik.http.routers.cas-router.entrypoints=websecure"
-      - "traefik.http.routers.cas-router.tls=true"
       - "traefik.http.routers.cas-router.tls.certresolver=cert-resolver"
+      - "traefik.http.services.cas-service.loadbalancer.server.port=3000"
       - "traefik.docker.network=cas-network"
-    networks:
-      - internal
-  
-
-
-  db:
-    image: mysql:8.0
-    container_name: mysql_cas_db
-    restart: unless-stopped
-    environment:
-      # Set your desired root password here
-      MYSQL_ROOT_PASSWORD: dbpass
-      # Create an initial database named 'caas_db'
-      MYSQL_DATABASE: cloud_audio_scheduler
-      MYSQL_USER: cas_user
-      MYSQL_PASSWORD: dbpass
-
-    volumes:
-      # Persistent storage for your database data
-      - db_data:/var/lib/mysql
-      # Mount the schema file so the container can access it
-      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
-
     networks:
       - internal
       - cas-network
 
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: dbpass
+      MYSQL_DATABASE: cloud_audio_scheduler
+      MYSQL_USER: cas_user
+      MYSQL_PASSWORD: dbpass
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - internal
+
 volumes:
   db_data:
-    driver: local
 
 networks:
   internal:
