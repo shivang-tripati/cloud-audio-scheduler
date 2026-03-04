@@ -2,7 +2,7 @@ name: traefik
 
 services:
   traefik:
-    image: traefik:v3.0
+    image: traefik:latest
     restart: unless-stopped
     environment:
       - DOCKER_API_VERSION=1.53
