@@ -32,6 +32,7 @@ services:
       MYSQL_PASSWORD: dbpass
     volumes:
       - db_data:/var/lib/mysql
+      - ./uploads:/app/uploads
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
     networks:
       - internal
