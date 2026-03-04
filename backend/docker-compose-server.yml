@@ -13,12 +13,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cas-router.rule=Host(`api.redio.radhakrishnajewellery.in`)"
-      - "traefik.http.routers.cas-router.entrypoints=websecure"
+      - "traefik.http.routers.cas-router.entrypoints=web,websecure"
+      - "traefik.http.routers.cas-router.tls=true"
       - "traefik.http.routers.cas-router.tls.certresolver=cert-resolver"
       - "traefik.http.services.cas-service.loadbalancer.server.port=3000"
-      - "traefik.docker.network=cas-network"
+      - "traefik.docker.network=cas-network"  
     networks:
-      - internal
+      - internal  
       - cas-network
 
   db:
