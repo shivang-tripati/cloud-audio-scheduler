@@ -64,8 +64,8 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl">Admin Login</CardTitle>
-          <CardDescription>Jewellery Retail Audio Management System</CardDescription>
+          <CardTitle className="text-2xl">RedioCast Login</CardTitle>
+          <CardDescription>Radhakrishna Jewellery - Audio Management System</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -102,13 +102,6 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
               />
-            </div>
-
-            <div className="text-xs text-muted-foreground">
-              <p>Demo credentials:</p>
-              <p>Email: amit@jewelnova.com (Admin)</p>
-              <p>Email: priya@jewelnova.com (Manager)</p>
-              <p>Password: any value</p>
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>

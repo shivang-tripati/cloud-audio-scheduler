@@ -42,7 +42,7 @@ export function Sidebar() {
   }
 
   return (
-    <>
+    <div className="mr-10">
       {/* Mobile toggle */}
       <Button variant="ghost" size="icon" className="md:hidden fixed top-4 left-4 z-50" onClick={() => setOpen(!open)}>
         {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -98,6 +98,6 @@ export function Sidebar() {
           </Button>
         </div>
       </aside>
-    </>
+    </div>
   )
 }
