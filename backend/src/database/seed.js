@@ -13,11 +13,11 @@ async function seedData() {
     console.log('✓ Tables synced');
 
     const adminExists = await User.findOne({
-      where: { email: 'admin@radhakrishnajewellery.in' }
+      where: { email: process.env.ADMIN_EMAIL }
     });
 
     if (!adminExists) {
-      const adminPassword = await User.hashPassword('admin@#$123');
+      const adminPassword = await User.hashPassword(process.env.ADMIN_PASSWORD);
 
       await User.create({
         name: 'Super Admin',

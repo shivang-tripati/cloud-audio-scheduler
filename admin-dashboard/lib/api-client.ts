@@ -2,7 +2,7 @@ import type { ApiResponse, ApiError } from "./types"
 import { getSession, clearSession } from "./auth"
 import type { PlaylistItem } from "@/lib/types"
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 interface FetchOptions extends RequestInit {
   params?: Record<string, any>
