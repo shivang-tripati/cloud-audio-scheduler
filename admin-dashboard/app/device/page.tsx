@@ -198,7 +198,6 @@ export default function DevicePage() {
         if (schedule.schedule_type === "DAILY_PRAYER") {
           const lastPlayedDate = localStorage.getItem(`daily_prayer_played_${todayDate}`)
           if (lastPlayedDate) {
-            console.log("[Device] DAILY_PRAYER already played today")
             continue
           }
 
@@ -229,7 +228,6 @@ export default function DevicePage() {
     if (!audio) return
 
     const handleEnded = () => {
-      console.log("[Device] Audio playback ended")
       // Post PLAYED log
       if (nowPlaying) {
         const schedule = schedules.find((s) => s.audio_id === nowPlaying)
@@ -274,7 +272,6 @@ export default function DevicePage() {
           timestamp: new Date().toISOString(),
         }),
       })
-      console.log(`[Device] Logged ${status} for schedule: ${schedule.title}`)
     } catch (error) {
       console.error("[Device] Failed to log playback event:", error)
     }
@@ -284,7 +281,6 @@ export default function DevicePage() {
     if (!audioRef.current) return
 
     setNowPlaying(audio.id)
-    console.log(`[Device] Playing: ${audio.title} (Schedule: ${schedule.title})`)
 
     // Use placeholder audio URL for mock
     audioRef.current.src = audio.file_url

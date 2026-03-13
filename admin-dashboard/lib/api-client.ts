@@ -2,7 +2,7 @@ import type { ApiResponse, ApiError } from "./types"
 import { getSession, clearSession } from "./auth"
 import type { PlaylistItem } from "@/lib/types"
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 interface FetchOptions extends RequestInit {
   params?: Record<string, any>
@@ -27,11 +27,9 @@ async function apiFetch<T>(
       ? endpoint.slice(1)
       : endpoint
 
-    console.log("API endpoint →", endpoint + " " + API_BASE_URL)
 
     const url = new URL('api/' + cleanEndpoint, API_BASE_URL)
 
-    console.log("API →", url.toString())
 
 
     if (options?.params) {
@@ -134,9 +132,6 @@ export async function loginUser(email: string, password: string): Promise<ApiRes
   //   }
   // }
 
-  console.log("API_BASE_URL", API_BASE_URL)
-  console.log("email", email)
-  console.log("password", password)
 
   return apiFetch("auth/login", {
     method: "POST",

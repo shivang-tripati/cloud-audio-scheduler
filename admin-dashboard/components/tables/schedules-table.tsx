@@ -36,7 +36,6 @@ export function SchedulesTable({
   const getAudioTitle = (audioId: string) => audioFiles.find((a) => a.id === audioId)?.title || "Unknown"
   const getBranchName = (branchId: string) => branches.find((b) => b.id === branchId)?.name || "All Branches"
 
-  console.log("schedules", schedules);
 
   return (
     <Card>
@@ -95,7 +94,7 @@ export function SchedulesTable({
                     </TableCell>
 
                     <TableCell>
-                      {formatTargets(schedule)}
+                      {formatTargets(schedule, branches)}
                     </TableCell>
 
                     <TableCell>

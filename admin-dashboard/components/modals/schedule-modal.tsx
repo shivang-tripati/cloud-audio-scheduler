@@ -63,7 +63,7 @@ export function ScheduleModal({
     if (schedule) {
       setFormData({
         title: schedule.title,
-        audio_id: schedule?.audio?.id || "",
+        audio_id: schedule?.audio?.id ? String(schedule.audio.id) : "",
         schedule_mode: schedule.schedule_mode,
         play_time: schedule.play_time.slice(0, 5),
         start_date: schedule.start_date,
@@ -72,7 +72,8 @@ export function ScheduleModal({
         play_count: schedule.play_count,
         priority: schedule.priority,
         target_type: schedule.target_type,
-        target_values: schedule.targets?.map(t => t.target_value) || [],
+        target_values: (schedule.target_values || schedule.targets?.map(t => t.target_value) || []).filter(Boolean).map(String),
+        is_active: schedule.is_active,
       })
     } else {
       //reset form
@@ -153,7 +154,7 @@ export function ScheduleModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto no-scrollbar">
         <DialogHeader>
           <DialogTitle>{schedule ? "Edit Schedule" : "Create Schedule"}</DialogTitle>
           <DialogDescription>{schedule ? "Update schedule details" : "Create a new audio schedule"}</DialogDescription>
@@ -188,14 +189,12 @@ export function ScheduleModal({
                 }
               >
                 <SelectTrigger disabled={loading}>
-                  <span className="truncate">
-                    {audioFiles.find(a => String(a.id) === formData.audio_id)?.title ?? "Select audio file"}
-                  </span>
+                  <SelectValue placeholder="Select audio file" />
                 </SelectTrigger>
 
                 <SelectContent>
                   {audioFiles.map((audio) => (
-                    <SelectItem key={audio.id} value={audio.id}>
+                    <SelectItem key={audio.id} value={String(audio.id)}>
                       {audio.title} ({audio.audio_type})
                     </SelectItem>
                   ))}
@@ -344,7 +343,7 @@ export function ScheduleModal({
                 onValueChange={(region) => setFormData({ ...formData, target_values: [region] })}
               >
                 <SelectTrigger disabled={loading}>
-                  <SelectValue />
+                  <SelectValue placeholder="Select a region" />
                 </SelectTrigger>
                 <SelectContent>
                   {REGIONS.map((region) => (
@@ -359,24 +358,29 @@ export function ScheduleModal({
 
           {formData.target_type === "BRANCH" && (
             <div className="space-y-2">
-              <label className="text-sm font-medium">Select Branches</label>
-              <div className="max-h-48 overflow-y-auto border rounded-md p-2 space-y-1">
+              <label className="text-sm font-medium">Select Branches ({formData.target_values.length} selected)</label>
+              <div className="max-h-60 overflow-y-auto border rounded-md p-3 space-y-2 bg-muted/5">
                 {branches.map((branch) => (
-                  <label key={branch.id} className="flex items-center gap-2 text-sm">
+                  <label key={branch.id} className="flex items-center gap-3 text-sm cursor-pointer hover:bg-muted/80 p-1.5 rounded-md transition-colors">
                     <input
                       type="checkbox"
-                      checked={formData.target_values.includes(branch.id)}
+                      className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                      checked={formData.target_values.map(String).includes(String(branch.id))}
                       onChange={(e) => {
                         const checked = e.target.checked
+                        const branchId = String(branch.id)
                         setFormData((prev) => ({
                           ...prev,
                           target_values: checked
-                            ? [...prev.target_values, branch.id]
-                            : prev.target_values.filter((id) => id !== branch.id),
+                            ? [...prev.target_values, branchId]
+                            : prev.target_values.filter((id) => String(id) !== branchId),
                         }))
                       }}
                     />
-                    {branch.name} ({branch.branch_code})
+                    <div className="flex flex-col">
+                      <span className="font-medium">{branch.name}</span>
+                      <span className="text-[10px] text-muted-foreground uppercase">{branch.branch_code}</span>
+                    </div>
                   </label>
                 ))}
               </div>
@@ -393,7 +397,7 @@ export function ScheduleModal({
               <SelectTrigger disabled={loading}>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent >
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="inactive">Inactive</SelectItem>
               </SelectContent>

@@ -47,37 +47,9 @@
 
 
 @theme {
-  --animate-in: enter 0.2s ease-out;
-  --animate-out: exit 0.2s ease-in;
-
   /* Specific Drawer animations (Slide transitions) */
   --animate-slide-out-to-bottom: slide-down 0.3s ease-in;
   --animate-slide-out-to-right: slide-right 0.3s ease-in;
-
-  @keyframes enter {
-    from {
-      opacity: 0;
-      /* Keep the position fixed, just scale and fade */
-      transform: translate(-50%, -48%) scale(0.95);
-    }
-
-    to {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-  }
-
-  @keyframes exit {
-    from {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    to {
-      opacity: 0;
-      transform: translate(-50%, -48%) scale(0.95);
-    }
-  }
 
   @keyframes slide-down {
     from {
@@ -208,5 +180,24 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* Fix Dialog centering during tailwind-animate animations */
+  [data-slot="dialog-content"] {
+    --tw-enter-translate-x: -50% !important;
+    --tw-enter-translate-y: -50% !important;
+    --tw-exit-translate-x: -50% !important;
+    --tw-exit-translate-y: -50% !important;
   }
 }

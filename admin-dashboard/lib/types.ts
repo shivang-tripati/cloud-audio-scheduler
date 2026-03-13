@@ -119,6 +119,7 @@ export interface Schedule {
     target_type: "ALL" | "REGION" | "BRANCH"
     target_value: string | null
   }[]
+  target_values?: string[]
 
 
   created_at: string

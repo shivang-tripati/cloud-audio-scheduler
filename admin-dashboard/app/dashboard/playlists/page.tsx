@@ -94,7 +94,6 @@ export default function PlaylistPage() {
             const res = await getBranchPlaylist(branchId)
             if (res.success && res.data) {
                 const data = res.data as PlaylistItem[]
-                console.log("playlist data", data)
                 setPlaylist(data)
             }
         } catch (error) {

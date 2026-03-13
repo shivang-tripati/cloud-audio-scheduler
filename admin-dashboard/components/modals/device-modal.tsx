@@ -38,7 +38,7 @@ export function DeviceModal({ open, device, branches, onOpenChange, onSave, load
     if (device) {
       setFormData({
         device_name: device.device_name,
-        branch_id: device.branch_id,
+        branch_id: device.branch_id ? String(device.branch_id) : "",
       })
     } else {
       setFormData({
@@ -74,7 +74,7 @@ export function DeviceModal({ open, device, branches, onOpenChange, onSave, load
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="max-h-[90vh] overflow-y-auto no-scrollbar">
         <DialogHeader>
           <DialogTitle>{device ? "Edit Device" : "Register Device"}</DialogTitle>
           <DialogDescription>
@@ -89,16 +89,6 @@ export function DeviceModal({ open, device, branches, onOpenChange, onSave, load
               {error}
             </div>
           )}
-
-          {/* <div className="space-y-2">
-            <label className="text-sm font-medium">Device Code</label>
-            <Input
-              value={formData.device_code}
-              onChange={(e) => setFormData({ ...formData, device_code: e.target.value })}
-              placeholder="DEV-MUM-001"
-              disabled={loading || !!device}
-            />
-          </div> */}
 
           <div className="space-y-2">
             <label className="text-sm font-medium">Device Name</label>
@@ -121,7 +111,7 @@ export function DeviceModal({ open, device, branches, onOpenChange, onSave, load
               </SelectTrigger>
               <SelectContent>
                 {branches.map((branch) => (
-                  <SelectItem key={branch.id} value={branch.id}>
+                  <SelectItem key={branch.id} value={String(branch.id)}>
                     {branch.name} ({branch.branch_code})
                   </SelectItem>
                 ))}

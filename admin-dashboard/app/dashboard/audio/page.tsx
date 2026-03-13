@@ -65,8 +65,6 @@ export default function AudioPage() {
 
   const handlePlayAudio = (audio: Audio) => {
 
-    console.log("Audio file URL →", API_BASE_URL + "/" + audio.file_url)
-    console.log("Playing audio:", audio)
     if (playingId === audio.id) {
       // Toggle play/pause
       if (audioRef.current) {

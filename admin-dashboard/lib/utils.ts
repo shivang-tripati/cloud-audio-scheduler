@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { Schedule } from './types'
+import { Schedule, Branch } from './types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -34,17 +34,29 @@ export function formatScheduleWhen(schedule: Schedule) {
   }
 }
 
-export function formatTargets(schedule: Schedule) {
+export function formatTargets(schedule: Schedule, branches: Branch[] = []) {
   if (schedule.target_type === 'ALL') {
     return "All Branches"
   }
-  if (schedule.target_type === 'REGION') {
-    return schedule.targets?.map(t => t.target_value).join(", ")
-  }
-  if (schedule.target_type === 'BRANCH') {
-    return schedule.targets?.map(t => t.target_value).join(", ")
+
+  const values = schedule.target_values || schedule.targets?.map(t => t.target_value) || []
+
+  if (values.length === 0) return "-"
+
+  let displayNames: string[] = []
+
+  if (schedule.target_type === 'BRANCH' && branches.length > 0) {
+    displayNames = values.map(id => {
+      const branch = branches.find(b => String(b.id) === String(id))
+      return branch ? branch.name : `Branch ${id}`
+    })
+  } else {
+    displayNames = values as string[]
   }
 
-  const values = schedule.targets?.map(t => t.target_value).join(", ")
-  return values || "-"
+  if (displayNames.length > 2) {
+    return `${displayNames.slice(0, 2).join(", ")} +${displayNames.length - 2} more`
+  }
+
+  return displayNames.join(", ")
 }

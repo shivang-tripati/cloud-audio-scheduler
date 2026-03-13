@@ -56,9 +56,9 @@ export function Sidebar() {
         className={`fixed left-0 top-0 h-screen w-64 bg-sidebar border-r border-sidebar-border flex flex-col transition-transform md:translate-x-0 z-40 ${open ? "translate-x-0" : "-translate-x-full"
           }`}
       >
-        <div className="p-6 border-b border-sidebar-border">
-          <h1 className="text-lg font-bold text-sidebar-foreground">Jewel Audio</h1>
-          <p className="text-xs text-sidebar-foreground/60 mt-1">Admin Dashboard</p>
+        <div className="p-6 border-b border-sidebar-border ml-10">
+          <h1 className="text-lg font-bold text-sidebar-foreground uppercase tracking-tight">RedioCast</h1>
+          <p className="text-xs text-sidebar-foreground/60 mt-0.5">Admin Dashboard</p>
         </div>
 
         <nav className="flex-1 overflow-y-auto p-4 space-y-2">

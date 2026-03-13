@@ -14,7 +14,6 @@ import debounce from "lodash/debounce";
 
 export default function DeviceCard({ device }: any) {
 
-    console.log("Render:", device.current_audio, device.volume);
 
     const [localVolume, setLocalVolume] = useState<number | null>(null);
 
@@ -107,9 +106,9 @@ export default function DeviceCard({ device }: any) {
 
                 <span className={`text-xs font-bold ${isOnline
 
-                        ? "text-green-600"
+                    ? "text-green-600"
 
-                        : "text-red-500"
+                    : "text-red-500"
 
                     }`}>
 
