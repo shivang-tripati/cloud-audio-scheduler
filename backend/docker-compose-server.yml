@@ -12,6 +12,7 @@ services:
       - .env
     volumes:
       - ./uploads:/app/uploads
+      - ./var/www/rediocast/downloads:/app/downloads
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cas-router.rule=Host(`api.redio.radhakrishnajewellery.in`)"
