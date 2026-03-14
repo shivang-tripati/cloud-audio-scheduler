@@ -54,14 +54,14 @@ export default function LandingPage() {
                                 </Button>
                             </Link>
 
-                            <Link href="#">
+                            <Link href="https://api.redio.radhakrishnajewellery.in/downloads/AudioAgentSetup.exe">
                                 <Button
                                     variant="outline"
                                     size="lg"
                                     className="w-full sm:w-auto gap-2 h-12 px-8 border-primary/20 bg-background/60 backdrop-blur hover:bg-primary/5 transition"
                                 >
                                     <Download className="h-5 w-5" />
-                                    Windows Agent
+                                    Rediocast Windows Player
                                 </Button>
                             </Link>
 
@@ -115,7 +115,7 @@ export default function LandingPage() {
                             </p>
 
                             <a
-                                href="https://api.redio.radhakrishnajewellery.in/api/agent/latest"
+                                href="https://api.redio.radhakrishnajewellery.in/downloads/AudioAgentSetup.exe"
                                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition"
                                 download
                             >
