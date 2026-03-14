@@ -18,6 +18,20 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+
+# Logs
+logs/
+*.log
+
+# Node audit reports
+*-audit.json
+
+# Runtime files
+*.pid
+*.tmp
+
+backend/logs/
+admin-dashboard/logs/
 # env files
 .env*
 
