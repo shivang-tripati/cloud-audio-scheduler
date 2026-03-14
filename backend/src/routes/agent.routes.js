@@ -3,32 +3,37 @@ const router = express.Router();
 const fs = require("fs/promises");
 const path = require("path");
 
-const downloadsPath = path.join(
-    __dirname,
-    "../../var/www/rediocast/downloads"
-);
+const downloadsPath = "/app/downloads";
 
-// Cache installer name for performance
 let cachedInstaller = null;
 let lastCheck = 0;
-const CACHE_TTL = 60 * 1000; // 1 minute
+const CACHE_TTL = 60000;
 
 async function getLatestInstaller() {
     const now = Date.now();
 
-    // Use cache if still valid
     if (cachedInstaller && now - lastCheck < CACHE_TTL) {
         return cachedInstaller;
     }
 
     const files = await fs.readdir(downloadsPath);
 
-    const installers = files
-        .filter(f => f.startsWith("AudioAgentSetup") && f.endsWith(".exe"))
-        .sort()
-        .reverse();
+    const installers = files.filter(
+        f => f.startsWith("AudioAgentSetup") && f.endsWith(".exe")
+    );
 
-    cachedInstaller = installers[0] || null;
+    if (!installers.length) return null;
+
+    const stats = await Promise.all(
+        installers.map(async file => ({
+            file,
+            stat: await fs.stat(path.join(downloadsPath, file))
+        }))
+    );
+
+    stats.sort((a, b) => b.stat.mtimeMs - a.stat.mtimeMs);
+
+    cachedInstaller = stats[0].file;
     lastCheck = now;
 
     return cachedInstaller;
