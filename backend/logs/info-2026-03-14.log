@@ -1,0 +1,26 @@
+{"level":"info","message":"[PlaylistEmitter] Initialized","timestamp":"2026-03-13T18:30:28.681Z"}
+{"level":"info","message":"[PlaylistEmitter] Initialized","timestamp":"2026-03-13T18:41:35.312Z"}
+{"level":"info","message":"System has 4 total devices. 0 are ONLINE.","timestamp":"2026-03-13T19:43:32.737Z"}
+{"level":"warn","message":"Debug: First device status is [OFFLINE]","timestamp":"2026-03-13T19:43:32.738Z"}
+{"level":"info","message":"System has 4 total devices. 0 are ONLINE.","timestamp":"2026-03-13T19:44:41.545Z"}
+{"level":"warn","message":"Debug: First device status is [OFFLINE]","timestamp":"2026-03-13T19:44:41.547Z"}
+{"level":"info","message":"System has 4 total devices. 0 are ONLINE.","timestamp":"2026-03-13T19:56:25.041Z"}
+{"level":"warn","message":"Debug: First device status is [OFFLINE]","timestamp":"2026-03-13T19:56:25.043Z"}
+{"level":"info","message":"System has 4 total devices. 0 are ONLINE.","timestamp":"2026-03-13T19:56:48.077Z"}
+{"level":"warn","message":"Debug: First device status is [OFFLINE]","timestamp":"2026-03-13T19:56:48.078Z"}
+{"level":"info","message":"System has 4 total devices. 0 are ONLINE.","timestamp":"2026-03-13T19:57:13.931Z"}
+{"level":"warn","message":"Debug: First device status is [OFFLINE]","timestamp":"2026-03-13T19:57:13.933Z"}
+{"level":"info","message":"System has 4 total devices. 0 are ONLINE.","timestamp":"2026-03-13T20:49:36.449Z"}
+{"level":"warn","message":"Debug: First device status is [OFFLINE]","timestamp":"2026-03-13T20:49:36.449Z"}
+{"email":"admin@radhakrishnajewellery.in","level":"error","message":"AuthService.login - User not found","timestamp":"2026-03-13T21:20:18.397Z"}
+{"email":"admin@radhakrishnajewellery.in","error":"Invalid credentials","level":"error","message":"AuthService.login - Error","stack":"Error: Invalid credentials\n    at AuthService.login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\services\\authService.js:13:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\controllers\\authController.js:8:22)","timestamp":"2026-03-13T21:20:18.402Z"}
+{"email":"admin@radhakrishnajewellery.in","level":"error","message":"AuthService.login - User not found","timestamp":"2026-03-13T21:20:30.681Z"}
+{"email":"admin@radhakrishnajewellery.in","error":"Invalid credentials","level":"error","message":"AuthService.login - Error","stack":"Error: Invalid credentials\n    at AuthService.login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\services\\authService.js:13:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\controllers\\authController.js:8:22)","timestamp":"2026-03-13T21:20:30.682Z"}
+{"email":"admin@radhakrishnajewellery.in","level":"error","message":"AuthService.login - User not found","timestamp":"2026-03-13T21:20:38.995Z"}
+{"email":"admin@radhakrishnajewellery.in","error":"Invalid credentials","level":"error","message":"AuthService.login - Error","stack":"Error: Invalid credentials\n    at AuthService.login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\services\\authService.js:13:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\controllers\\authController.js:8:22)","timestamp":"2026-03-13T21:20:38.996Z"}
+{"email":"admin@radhakrishnajewellery.in","level":"error","message":"AuthService.login - User not found","timestamp":"2026-03-13T21:20:57.332Z"}
+{"email":"admin@radhakrishnajewellery.in","error":"Invalid credentials","level":"error","message":"AuthService.login - Error","stack":"Error: Invalid credentials\n    at AuthService.login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\services\\authService.js:13:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\controllers\\authController.js:8:22)","timestamp":"2026-03-13T21:20:57.332Z"}
+{"email":"admin@radhakrishnajewellery.in","level":"error","message":"AuthService.login - User not found","timestamp":"2026-03-13T21:21:01.136Z"}
+{"email":"admin@radhakrishnajewellery.in","error":"Invalid credentials","level":"error","message":"AuthService.login - Error","stack":"Error: Invalid credentials\n    at AuthService.login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\services\\authService.js:13:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\controllers\\authController.js:8:22)","timestamp":"2026-03-13T21:21:01.137Z"}
+{"email":"admin@jewellery.com","level":"error","message":"AuthService.login - Invalid password","timestamp":"2026-03-13T21:21:19.981Z"}
+{"email":"admin@jewellery.com","error":"Invalid credentials","level":"error","message":"AuthService.login - Error","stack":"Error: Invalid credentials\n    at AuthService.login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\services\\authService.js:25:15)\n    at async login (D:\\work\\bijoy\\cloud-audio-scheduler\\backend\\src\\controllers\\authController.js:8:22)","timestamp":"2026-03-13T21:21:19.981Z"}
