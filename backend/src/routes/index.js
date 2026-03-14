@@ -10,11 +10,14 @@ const audioRoutes = require('./audio.routes');
 const scheduleRoutes = require('./schedule.routes');
 const playlistRoutes = require('./playlist.routes');
 const logRoutes = require('./log.routes');
+const agentRoutes = require('./agent.routes');
 
 // Health Check (Common)
 router.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
+
+router.use("/agent", agentRoutes);
 
 // Mount Routes
 router.use('/auth', authRoutes);         // Result: /api/auth/...
