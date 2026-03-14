@@ -23,20 +23,48 @@ services:
     networks:
       - internal
       - cas-network
+    depends_on:
+      db:
+        condition: service_healthy
 
   db:
     image: mysql:8.0
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: dbpass
-      MYSQL_DATABASE: cloud_audio_scheduler
-      MYSQL_USER: cas_user
-      MYSQL_PASSWORD: dbpass
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     networks:
       - internal
+    
+
+
+  downloads:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./var/www/rediocast/downloads:/usr/share/nginx/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.downloads-router.rule=Host(`api.redio.radhakrishnajewellery.in`) && PathPrefix(`/downloads`)"
+      - "traefik.http.routers.downloads-router.entrypoints=web,websecure"
+      - "traefik.http.routers.downloads-router.tls=true"
+      - "traefik.http.routers.downloads-router.tls.certresolver=cert-resolver"
+      - "traefik.http.services.downloads-service.loadbalancer.server.port=80"
+      - "traefik.docker.network=cas-network"
+    networks:
+      - internal
+      - cas-network
 
 volumes:
   db_data:
