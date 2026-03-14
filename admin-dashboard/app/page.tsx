@@ -104,13 +104,24 @@ export default function LandingPage() {
                             <div className="mx-auto mb-4 h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center text-primary shadow-inner">
                                 <Download className="h-7 w-7" />
                             </div>
+
                             <h3 className="text-lg font-semibold mb-2">
-                                Windows Audio Agent
+                                RedioCast Player for Windows
                             </h3>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
+
+                            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                                 Lightweight Windows client that automatically syncs and plays
                                 scheduled audio in the background.
                             </p>
+
+                            <a
+                                href="https://api.redio.radhakrishnajewellery.in/api/agent/latest"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition"
+                                download
+                            >
+                                <Download className="h-4 w-4" />
+                                Download Installer
+                            </a>
                         </div>
 
                     </div>
