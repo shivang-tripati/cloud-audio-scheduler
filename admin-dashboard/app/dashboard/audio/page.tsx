@@ -149,23 +149,30 @@ export default function AudioPage() {
   }
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Audio Library</h1>
-        <p className="text-muted-foreground mt-2">Upload and manage audio files</p>
+    <div className="space-y-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-extrabold tracking-tight leading-tight text-3xl md:text-4xl">
+            <span className="text-red-500 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-500/60">
+              Audio
+            </span>{" "}
+            Library
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm font-medium">Upload and manage system-wide audio assets</p>
+        </div>
       </div>
 
       {playingId && (
-        <Card className="mb-6 bg-primary/5 border-primary/20">
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <Volume2 className="w-4 h-4" />
-              Now Playing
+        <Card className="mb-6 bg-card/40 backdrop-blur-md border border-primary/20 shadow-lg rounded-2xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-500">
+          <CardHeader className="py-4 border-b border-border/50 bg-primary/5">
+            <CardTitle className="text-sm font-bold uppercase tracking-widest text-primary flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+              Now Auditioning
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex items-center justify-between gap-4">
+          <CardContent className="flex items-center justify-between gap-6 p-6">
             <div className="flex-1">
-              <p className="font-medium">{audioFiles.find((a) => a.id === playingId)?.title}</p>
+              <p className="font-bold text-lg mb-4 text-foreground">{audioFiles.find((a) => a.id === playingId)?.title}</p>
               <audio
                 ref={audioRef}
                 onEnded={() => {
@@ -173,12 +180,14 @@ export default function AudioPage() {
                   setPlayingId(null)
                 }}
                 crossOrigin="anonymous"
-                className="w-full mt-2"
+                className="w-full h-10 filter invert dark:invert-0 opacity-80"
                 controls
               />
             </div>
             <Button
               variant="outline"
+              size="sm"
+              className="rounded-xl border-primary/20 hover:bg-primary/10 transition-all font-bold uppercase tracking-tighter text-[10px]"
               onClick={() => {
                 setPlayingId(null)
                 setIsPlaying(false)

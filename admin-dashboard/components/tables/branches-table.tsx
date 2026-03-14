@@ -28,27 +28,30 @@ export function BranchesTable({
   const canModify = checkPermission(currentUserRole as any, "canEditBranch")
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Branches Management</CardTitle>
+    <Card className="border bg-card/40 backdrop-blur-md shadow-sm rounded-2xl overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-between border-b border-border/50 bg-card/20 py-5">
+        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+          <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+          Branch Directory
+        </CardTitle>
         {canModify && (
-          <Button onClick={onCreateNew} size="sm" disabled={loading}>
-            <Plus className="w-4 h-4 mr-2" />
+          <Button onClick={onCreateNew} size="sm" disabled={loading} className="gap-2 shadow-md hover:scale-[1.03] transition-all">
+            <Plus className="w-4 h-4" />
             Add Branch
           </Button>
         )}
       </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
+      <CardContent className="p-0">
+        <div className="overflow-x-auto no-scrollbar">
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Code</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>City</TableHead>
-                <TableHead>Region</TableHead>
-                <TableHead>Status</TableHead>
-                {canModify && <TableHead className="text-right">Actions</TableHead>}
+            <TableHeader className="bg-card/50">
+              <TableRow className="border-b border-border/50 hover:bg-transparent">
+                <TableHead className="font-bold text-foreground py-4 pl-6 uppercase tracking-widest text-[10px]">Code</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">Name</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">City</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">Region</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">Status</TableHead>
+                {canModify && <TableHead className="text-right py-4 pr-6 uppercase tracking-widest text-[10px]">Actions</TableHead>}
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -60,39 +63,52 @@ export function BranchesTable({
                 </TableRow>
               ) : (
                 branches.map((branch) => (
-                  <TableRow key={branch.id}>
-                    <TableCell className="font-medium">{branch.branch_code}</TableCell>
-                    <TableCell>{branch.name}</TableCell>
-                    <TableCell>{branch.city}</TableCell>
-                    <TableCell>{branch.region}</TableCell>
-                    <TableCell>
-                      <Badge variant={branch.is_active ? "outline" : "destructive"}>
+                  <TableRow key={branch.id} className="border-b border-border/40 hover:bg-primary/5 transition-colors group">
+                    <TableCell className="font-bold text-sm py-4 pl-6 text-foreground group-hover:text-primary transition-colors">{branch.branch_code}</TableCell>
+                    <TableCell className="text-sm font-medium">{branch.name}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{branch.city}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{branch.region}</TableCell>
+                    <TableCell className="py-4">
+                      <Badge 
+                        variant="secondary"
+                        className={`font-black uppercase tracking-tighter text-[10px] px-2.5 py-0.5 border ${branch.is_active 
+                          ? "bg-green-500/10 text-green-500 border-green-500/20" 
+                          : "bg-red-500/10 text-red-500 border-red-500/20"}`}
+                      >
                         {branch.is_active ? "Active" : "Inactive"}
                       </Badge>
                     </TableCell>
                     {canModify && (
-                      <TableCell className="text-right space-x-2">
-                        <Button variant="ghost" size="sm" onClick={() => onEdit(branch)} disabled={loading}>
-                          <Edit2 className="w-4 h-4" />
+                    <TableCell className="text-right py-4 pr-6">
+                      <div className="flex items-center justify-end gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => onEdit(branch)}
+                          disabled={loading}
+                          className="h-8 w-8 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
                         </Button>
                         <Button
                           variant="ghost"
-                          size="sm"
+                          size="icon"
                           onClick={() => onDelete(branch)}
                           disabled={loading}
-                          className="text-destructive hover:text-destructive"
+                          className="h-8 w-8 rounded-lg text-red-500 hover:bg-red-500/10 hover:text-red-400 transition-colors"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-3.5 h-3.5" />
                         </Button>
-                      </TableCell>
-                    )}
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
+                      </div>
+                    </TableCell>
+                  )}
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </CardContent>
+  </Card>
   )
 }

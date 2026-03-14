@@ -83,7 +83,7 @@ export default function DeviceMonitor({ liveDevices = [] }: any) {
 
                     <div
                         key={branchCode}
-                        className="bg-card border rounded-2xl shadow-sm overflow-hidden"
+                        className="bg-card/40 backdrop-blur-md border border-border rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:bg-card/60"
                     >
 
                         {/* HEADER */}

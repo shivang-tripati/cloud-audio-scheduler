@@ -38,29 +38,32 @@ export function SchedulesTable({
 
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Schedules Management</CardTitle>
+    <Card className="border bg-card/40 backdrop-blur-md shadow-sm rounded-2xl overflow-hidden">
+      <CardHeader className="flex flex-row items-center justify-between border-b border-border/50 bg-card/20 py-5">
+        <CardTitle className="text-sm font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+          <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+          Broadcast Registry
+        </CardTitle>
         {canModify && (
-          <Button onClick={onCreateNew} size="sm" disabled={loading}>
-            <Plus className="w-4 h-4 mr-2" />
+          <Button onClick={onCreateNew} size="sm" disabled={loading} className="gap-2 shadow-md hover:scale-[1.03] transition-all">
+            <Plus className="w-4 h-4" />
             Create Schedule
           </Button>
         )}
       </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
+      <CardContent className="p-0">
+        <div className="overflow-x-auto no-scrollbar">
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Audio</TableHead>
-                <TableHead>Mode</TableHead>
-                <TableHead>When</TableHead>
-                <TableHead>Plays</TableHead>
-                <TableHead>Targets</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+            <TableHeader className="bg-card/50">
+              <TableRow className="border-b border-border/50 hover:bg-transparent">
+                <TableHead className="font-bold text-foreground py-4 pl-6 uppercase tracking-widest text-[10px]">Title</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">Audio</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">Mode</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">When</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">Plays</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">Targets</TableHead>
+                <TableHead className="font-bold text-foreground py-4 uppercase tracking-widest text-[10px]">Status</TableHead>
+                <TableHead className="text-right py-4 pr-6 uppercase tracking-widest text-[10px]">Actions</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -74,31 +77,28 @@ export function SchedulesTable({
               ) : (
 
                 schedules.map((schedule) => (
-                  <TableRow key={schedule.id}>
-                    <TableCell className="font-medium">{schedule.title}</TableCell>
+                  <TableRow key={schedule.id} className="border-b border-border/40 hover:bg-primary/5 transition-colors group">
+                    <TableCell className="font-bold text-sm py-4 pl-6 text-foreground group-hover:text-primary transition-colors">{schedule.title}</TableCell>
+
+                    <TableCell className="text-sm font-medium">{schedule.audio?.title ?? "-"}</TableCell>
 
                     <TableCell>
-                      {schedule.audio?.title ?? "-"}
+                      <Badge variant="outline" className="border-border/50 bg-background/40 backdrop-blur-sm rounded-full px-2 py-0.5 font-bold uppercase tracking-tighter text-[9px]">{schedule.schedule_mode}</Badge>
                     </TableCell>
 
-                    <TableCell>
-                      <Badge variant="outline">{schedule.schedule_mode}</Badge>
-                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{formatScheduleWhen(schedule)}</TableCell>
 
-                    <TableCell>
-                      {formatScheduleWhen(schedule)}
-                    </TableCell>
+                    <TableCell className="text-center font-bold text-primary">{schedule.play_count}×</TableCell>
 
-                    <TableCell className="text-center">
-                      {schedule.play_count}×
-                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground max-w-[200px] truncate">{formatTargets(schedule, branches)}</TableCell>
 
-                    <TableCell>
-                      {formatTargets(schedule, branches)}
-                    </TableCell>
-
-                    <TableCell>
-                      <Badge variant={schedule.is_active ? "default" : "secondary"}>
+                    <TableCell className="py-4">
+                      <Badge 
+                        variant="secondary"
+                        className={`font-black uppercase tracking-tighter text-[10px] px-2.5 py-0.5 border ${schedule.is_active 
+                          ? "bg-primary/10 text-primary border-primary/20" 
+                          : "bg-muted text-muted-foreground border-border/50"}`}
+                      >
                         {schedule.is_active ? "Active" : "Inactive"}
                       </Badge>
                     </TableCell>

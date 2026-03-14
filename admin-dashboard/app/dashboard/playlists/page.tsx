@@ -218,55 +218,65 @@ export default function PlaylistPage() {
     }
 
     return (
+        <div className="space-y-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            {/* Header — matches branches/devices pattern */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold">FM Radio Playlists</h1>
-                <p className="text-muted-foreground mt-2">
-                    Manage branch-level continuous audio playlists
-                </p>
-            </div>
+          <h1 className="font-extrabold tracking-tight leading-tight text-3xl md:text-4xl">
+            <span className="text-red-500 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-500/60">
+              FM Radio
+            </span>{" "}
+            Playlists
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm font-medium">Manage branch-level priority audio broadcasting</p>
+        </div>
+      </div>
 
             {/* Branch selector + stats bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                <div className="flex items-center gap-3">
-                    <Building2 className="w-5 h-5 text-muted-foreground" />
-                    <Select value={selectedBranchId} onValueChange={setSelectedBranchId}>
-                        <SelectTrigger className="w-[240px]">
-                            <SelectValue placeholder="Select a branch" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {branches.map((b) => (
-                                <SelectItem key={b.id} value={String(b.id)}>
-                                    {b.name} — {b.city}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 p-6 bg-card/40 backdrop-blur-md rounded-2xl border border-border/50 shadow-sm">
+                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                            <Building2 className="w-5 h-5" />
+                        </div>
+                        <Select value={selectedBranchId} onValueChange={setSelectedBranchId}>
+                            <SelectTrigger className="w-[260px] bg-background/50 border-border/50 rounded-xl font-medium">
+                                <SelectValue placeholder="Select a branch" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background/95 backdrop-blur-xl border-border/50 rounded-xl">
+                                {branches.map((b) => (
+                                    <SelectItem key={b.id} value={String(b.id)} className="rounded-lg my-0.5 focus:bg-primary/10 focus:text-primary">
+                                        {b.name} — {b.city}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
 
                     {/* Live stats for selected branch */}
                     {playlist.length > 0 && (
-                        <div className="hidden sm:flex items-center gap-2">
-                            <Badge variant="secondary">
-                                <Radio className="w-3 h-3 mr-1" />
-                                {activeCount} active tracks
+                        <div className="flex items-center gap-3 px-1">
+                            <Badge variant="secondary" className="bg-primary/10 text-primary border border-primary/20 rounded-full px-3 py-1 font-bold uppercase tracking-tighter text-[10px]">
+                                <Radio className="w-3 h-3 mr-1.5 animate-pulse" />
+                                {activeCount} Active
                             </Badge>
-                            <Badge variant="outline">{fmtDuration(totalDuration)} loop</Badge>
+                            <Badge variant="outline" className="border-border/50 bg-background/40 backdrop-blur-sm rounded-full px-3 py-1 font-bold uppercase tracking-tighter text-[10px]">
+                                {fmtDuration(totalDuration)} Loop
+                            </Badge>
                         </div>
                     )}
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                     {playlist.length > 0 && (
                         <Button
-                            variant="outline"
+                            variant="ghost"
                             size="sm"
                             onClick={() => setClearConfirm(true)}
                             disabled={loading}
-                            className="text-destructive border-destructive/30 hover:bg-destructive/10"
+                            className="text-red-500 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all font-bold uppercase tracking-tighter text-[10px]"
                         >
-                            <Trash2 className="w-4 h-4 mr-1" />
+                            <Trash2 className="w-4 h-4 mr-1.5" />
                             Clear Playlist
                         </Button>
                     )}
@@ -274,8 +284,9 @@ export default function PlaylistPage() {
                         size="sm"
                         onClick={() => setAddModalOpen(true)}
                         disabled={loading || !selectedBranchId}
+                        className="rounded-xl shadow-lg hover:scale-[1.03] transition-all font-bold uppercase tracking-tighter text-[10px] px-6"
                     >
-                        <Plus className="w-4 h-4 mr-1" />
+                        <Plus className="w-4 h-4 mr-1.5" />
                         Add Track
                     </Button>
                 </div>

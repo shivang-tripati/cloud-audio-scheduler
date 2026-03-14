@@ -102,10 +102,17 @@ export default function UsersPage() {
   }
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Users Management</h1>
-        <p className="text-muted-foreground mt-2">Manage admin and manager users</p>
+    <div className="space-y-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-extrabold tracking-tight leading-tight text-3xl md:text-4xl">
+            <span className="text-red-500 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-500/60">
+              Access
+            </span>{" "}
+            Control
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm font-medium">Manage administrative privileges and user roles</p>
+        </div>
       </div>
 
       <UsersTable

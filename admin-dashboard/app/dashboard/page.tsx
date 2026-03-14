@@ -78,10 +78,15 @@ export default function DashboardPage() {
       <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div className="space-y-1">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary rounded-lg">
-              <LayoutDashboard className="w-6 h-6 text-primary-foreground" />
+            <div className="p-2.5 bg-primary/10 rounded-xl shadow-inner border border-primary/20">
+              <LayoutDashboard className="w-6 h-6 text-primary" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">RedioCast Dashboard</h1>
+            <h1 className="font-extrabold tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
+              <span className="text-red-500 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-500/60">
+                RedioCast
+              </span>{" "}
+              Dashboard
+            </h1>
           </div>
           <p className="text-muted-foreground text-sm md:text-base">
             RedioCast Audio Network: <span className="font-semibold text-foreground">Real-time Device Player Performance Monitoring</span>

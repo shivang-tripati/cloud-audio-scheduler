@@ -84,37 +84,37 @@ export default function DeviceCard({ device }: any) {
 
         <div
             key={device.device_id}
-            className={`border rounded-lg p-3 ${!isOnline && "opacity-50"}`}
+            className={`border border-border/50 rounded-xl p-4 bg-card/30 backdrop-blur-sm transition-all duration-300 hover:bg-card/50 hover:scale-[1.02] ${!isOnline && "opacity-60"}`}
         >
 
             {/* Header */}
 
-            <div className="flex justify-between mb-2">
+            <div className="flex justify-between items-start mb-3">
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
+                    <div className={`p-1.5 rounded-lg ${isOnline ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
+                        <Monitor size={16} />
+                    </div>
 
-                    <Monitor size={14} />
-
-                    <span className="font-semibold text-sm">
-
-                        {device.device_name}
-
-                    </span>
+                    <div className="flex flex-col">
+                        <span className="font-bold text-sm tracking-tight">
+                            {device.device_name}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">
+                            Device Terminal
+                        </span>
+                    </div>
 
                 </div>
 
 
-                <span className={`text-xs font-bold ${isOnline
-
-                    ? "text-green-600"
-
-                    : "text-red-500"
-
+                <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-tighter border ${isOnline
+                    ? "bg-green-500/10 text-green-500 border-green-500/20"
+                    : "bg-red-500/10 text-red-500 border-red-500/20"
                     }`}>
-
+                    <div className={`h-1.5 w-1.5 rounded-full ${isOnline ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
                     {device.status}
-
-                </span>
+                </div>
 
             </div>
 
@@ -122,15 +122,18 @@ export default function DeviceCard({ device }: any) {
 
             {/* Current audio */}
 
-            <div className="flex items-center gap-2 text-xs mb-3">
+            <div className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-primary/5 border border-primary/10 text-[11px] mb-4 group/audio">
 
-                <Music size={14} />
+                <div className={`p-1 rounded-full ${isPlaying ? 'bg-primary/20 text-primary animate-spin-slow' : 'bg-muted text-muted-foreground'}`}>
+                    <Music size={12} />
+                </div>
 
-                {isPlaying
-
-                    ? device.current_audio
-
-                    : "Idle"}
+                <div className="flex flex-col truncate">
+                    <span className="text-muted-foreground font-medium uppercase tracking-tighter text-[9px]">Currently Playing</span>
+                    <span className={`font-bold truncate ${isPlaying ? 'text-foreground' : 'text-muted-foreground/60'}`}>
+                        {isPlaying ? device.current_audio : "System Idle"}
+                    </span>
+                </div>
 
             </div>
 
@@ -138,13 +141,13 @@ export default function DeviceCard({ device }: any) {
 
             {/* Volume */}
 
-            <div className="space-y-2">
+            <div className="space-y-3 px-1">
 
-                <div className="flex justify-between text-xs">
+                <div className="flex justify-between items-center">
 
-                    <div className="flex gap-1 items-center">
+                    <div className="flex gap-2 items-center text-[11px] font-bold text-muted-foreground">
 
-                        <Volume2 size={14} />
+                        <Volume2 size={14} className="text-primary" />
 
                         {volume}%
 
@@ -157,7 +160,7 @@ export default function DeviceCard({ device }: any) {
 
                         disabled={!isOnline}
 
-                        className="text-xs text-red-500"
+                        className="h-7 w-7 flex items-center justify-center rounded-lg hover:bg-red-500/10 text-red-500 transition-colors"
 
                     >
 
@@ -179,6 +182,8 @@ export default function DeviceCard({ device }: any) {
                     disabled={!isOnline}
 
                     onValueChange={handleChange}
+
+                    className="py-1"
 
                 />
 

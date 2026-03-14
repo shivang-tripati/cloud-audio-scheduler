@@ -53,24 +53,28 @@ export function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-sidebar border-r border-sidebar-border flex flex-col transition-transform md:translate-x-0 z-40 ${open ? "translate-x-0" : "-translate-x-full"
+        className={`fixed left-0 top-0 h-screen w-64 bg-card/40 backdrop-blur-xl border-r border-border transition-transform md:translate-x-0 z-40 ${open ? "translate-x-0" : "-translate-x-full"
           }`}
       >
-        <div className="p-6 border-b border-sidebar-border ml-10">
-          <h1 className="text-lg font-bold text-sidebar-foreground uppercase tracking-tight">RedioCast</h1>
-          <p className="text-xs text-sidebar-foreground/60 mt-0.5">Admin Dashboard</p>
+        <div className="p-6 border-b border-border ml-10">
+          <h1 className="text-xl font-extrabold tracking-tight text-foreground uppercase">
+            <span className="text-red-500 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-500/60">
+              RedioCast
+            </span>
+          </h1>
+          <p className="text-xs text-muted-foreground mt-0.5 tracking-wide font-medium">Admin Dashboard</p>
         </div>
 
-        <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+        <nav className="flex-1 overflow-y-auto p-4 space-y-2 no-scrollbar">
           {navItems.map((item) => {
             const isActive = pathname === item.href
             return (
-              <Link key={item.href} href={item.href}>
+              <Link key={item.href} href={item.href} className="block">
                 <button
                   onClick={() => setOpen(false)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${isActive
-                    ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                    : "text-sidebar-foreground hover:bg-sidebar-accent"
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
+                    ? "bg-primary/15 text-primary border border-primary/20 shadow-sm"
+                    : "text-muted-foreground hover:bg-card/60 hover:text-foreground hover:scale-[1.02]"
                     }`}
                 >
                   {item.icon}
@@ -81,16 +85,16 @@ export function Sidebar() {
           })}
         </nav>
 
-        <div className="p-4 border-t border-sidebar-border space-y-4">
+        <div className="p-4 border-t border-border space-y-4 bg-card/20">
           {user && (
-            <div className="text-xs">
-              <p className="text-sidebar-foreground font-medium">{user.name}</p>
-              <p className="text-sidebar-foreground/60">{user.role}</p>
+            <div className="text-xs px-2">
+              <p className="text-foreground font-semibold">{user.name}</p>
+              <p className="text-muted-foreground">{user.role}</p>
             </div>
           )}
           <Button
             variant="outline"
-            className="w-full justify-start gap-2 text-destructive hover:text-destructive bg-transparent"
+            className="w-full justify-start gap-2 text-red-500 hover:text-red-400 border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition backdrop-blur-sm rounded-xl"
             onClick={handleLogout}
           >
             <LogOut className="w-4 h-4" />

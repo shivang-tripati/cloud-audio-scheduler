@@ -102,10 +102,17 @@ export default function BranchesPage() {
   }
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Branches Management</h1>
-        <p className="text-muted-foreground mt-2">Manage retail branch locations</p>
+    <div className="space-y-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-extrabold tracking-tight leading-tight text-3xl md:text-4xl">
+            <span className="text-red-500 bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-500/60">
+              Branch
+            </span>{" "}
+            Management
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm font-medium">Manage and monitor retail branch locations</p>
+        </div>
       </div>
 
       <BranchesTable
