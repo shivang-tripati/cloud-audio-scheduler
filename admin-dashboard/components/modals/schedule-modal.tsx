@@ -65,7 +65,7 @@ export function ScheduleModal({
         title: schedule.title,
         audio_id: schedule?.audio?.id ? String(schedule.audio.id) : "",
         schedule_mode: schedule.schedule_mode,
-        play_time: schedule.play_time.slice(0, 5),
+        play_time: schedule?.play_time?.slice(0, 5),
         start_date: schedule.start_date,
         end_date: schedule.end_date,
         play_at: schedule.play_at ? schedule.play_at.slice(0, 16) : "",
@@ -179,7 +179,7 @@ export function ScheduleModal({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
+            <div className="space-y-2 min-w-0">
               <label className="text-sm font-medium">Audio File</label>
 
               <Select
@@ -188,7 +188,7 @@ export function ScheduleModal({
                   setFormData({ ...formData, audio_id: id })
                 }
               >
-                <SelectTrigger disabled={loading}>
+                <SelectTrigger disabled={loading} className="w-full">
                   <SelectValue placeholder="Select audio file" />
                 </SelectTrigger>
 
@@ -205,7 +205,7 @@ export function ScheduleModal({
             </div>
 
 
-            <div className="space-y-2">
+            <div className="space-y-2 min-w-0">
               <label className="text-sm font-medium">Schedule Mode</label>
               <Select
                 value={formData.schedule_mode}
@@ -219,7 +219,7 @@ export function ScheduleModal({
                   })
                 }
               >
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select schedule mode" />
                 </SelectTrigger>
                 <SelectContent>
@@ -316,7 +316,7 @@ export function ScheduleModal({
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2 min-w-0">
             <label className="text-sm font-medium">Target</label>
             <Select
               value={formData.target_type}
@@ -324,7 +324,7 @@ export function ScheduleModal({
                 setFormData({ ...formData, target_type: type as TargetType, target_values: [] })
               }
             >
-              <SelectTrigger disabled={loading}>
+              <SelectTrigger disabled={loading} className="w-full">
                 <SelectValue placeholder="Select target" />
               </SelectTrigger>
               <SelectContent>
@@ -336,13 +336,13 @@ export function ScheduleModal({
           </div>
 
           {formData.target_type === "REGION" && (
-            <div className="space-y-2">
+            <div className="space-y-2 min-w-0">
               <label className="text-sm font-medium">Select Region</label>
               <Select
                 value={formData.target_values[0] || ""}
                 onValueChange={(region) => setFormData({ ...formData, target_values: [region] })}
               >
-                <SelectTrigger disabled={loading}>
+                <SelectTrigger disabled={loading} className="w-full">
                   <SelectValue placeholder="Select a region" />
                 </SelectTrigger>
                 <SelectContent>
@@ -388,13 +388,13 @@ export function ScheduleModal({
           )}
 
 
-          <div className="space-y-2">
+          <div className="space-y-2 min-w-0">
             <label className="text-sm font-medium">Status</label>
             <Select
               value={formData.is_active ? "active" : "inactive"}
               onValueChange={(value) => setFormData({ ...formData, is_active: value === "active" })}
             >
-              <SelectTrigger disabled={loading}>
+              <SelectTrigger disabled={loading} className="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent >

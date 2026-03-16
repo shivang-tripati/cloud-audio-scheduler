@@ -1,4 +1,5 @@
 const audioService = require('../services/audioService');
+const youtubeService = require('../services/youtube.service');
 const audioProcessor = require('../utils/audioProcessor')
 const logger = require('../utils/logger');
 
@@ -131,6 +132,32 @@ const audioController = {
     } catch (error) {
       logger.error('AudioService.download - Error', { error: error.message, stack: error.stack });
       res.status(404).json({
+        success: false,
+        message: error.message
+      });
+    }
+  },
+
+  async importLink(req, res) {
+    const { url } = req.body;
+    logger.info('AudioService.importLink - Starting', { url });
+    try {
+      if (!url) {
+        return res.status(400).json({
+          success: false,
+          message: 'YouTube URL is required'
+        });
+      }
+
+      const audio = await youtubeService.importLink(url);
+      
+      res.status(200).json({
+        success: true,
+        data: audio
+      });
+    } catch (error) {
+      logger.error('AudioService.importLink - Error', { error: error.message, stack: error.stack });
+      res.status(400).json({
         success: false,
         message: error.message
       });

@@ -18,7 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AlertCircle, Loader2, Upload } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
 
-const AUDIO_TYPES: AudioType[] = ["PRAYER", "FESTIVAL", "DAILY", "ANOUNCEMENT", "OTHER"]
+const AUDIO_TYPES: AudioType[] = ["PRAYER", "FESTIVAL", "DAILY", "OTHER"]
 const LANGUAGES: Language[] = ["Hindi", "English", "Gujarati", "Bengali", "Marathi"]
 
 interface AudioModalProps {

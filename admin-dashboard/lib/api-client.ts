@@ -347,6 +347,13 @@ export async function deleteAudio(id: string): Promise<ApiResponse<any>> {
   })
 }
 
+export async function addAudioFromLink(url: string): Promise<ApiResponse<any>> {
+  return apiFetch("audio/import-link", {
+    method: "POST",
+    body: JSON.stringify({ url }),
+  })
+}
+
 // Schedules APIs
 export async function getSchedules(): Promise<ApiResponse<any[]>> {
   return apiFetch("schedules")

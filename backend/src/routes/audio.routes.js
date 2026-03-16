@@ -11,6 +11,11 @@ const schemas = require('../validators/schemas');
 const router = express.Router();
 
 
+router.post('/import-link',
+  authenticate,
+  authorize('SUPER_ADMIN'),
+  audioController.importLink
+);
 
 router.post('/',
   authenticate,

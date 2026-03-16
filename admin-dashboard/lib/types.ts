@@ -71,7 +71,7 @@ export interface Device {
 }
 
 // Audio types
-export type AudioType = "PRAYER" | "FESTIVAL" | "DAILY" | "ANOUNCEMENT" | "OTHER"
+export type AudioType = "PRAYER" | "FESTIVAL" | "DAILY" | "OTHER"
 export type Language = "Hindi" | "English" | "Gujarati" | "Bengali" | "Marathi" | "OTHER"
 
 export interface Audio {

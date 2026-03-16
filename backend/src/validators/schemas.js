@@ -89,7 +89,7 @@ const activateDeviceSchema = Joi.object({
 // Audio File Schemas
 const createAudioSchema = Joi.object({
   title: Joi.string().min(2).max(255).required(),
-  audio_type: Joi.string().valid('PRAYER', 'FESTIVAL', 'DAILY', 'ANNOUNCEMENT', 'OTHER').required(),
+  audio_type: Joi.string().valid('PRAYER', 'FESTIVAL', 'DAILY', 'OTHER').required(),
   language: Joi.string().min(2).max(50).required(),
   is_active: Joi.boolean().default(true)
   // file_url and duration_seconds are auto-generated from upload
@@ -97,7 +97,7 @@ const createAudioSchema = Joi.object({
 
 const updateAudioSchema = Joi.object({
   title: Joi.string().min(2).max(255),
-  audio_type: Joi.string().valid('PRAYER', 'FESTIVAL', 'DAILY'),
+  audio_type: Joi.string().valid('PRAYER', 'FESTIVAL', 'DAILY', 'OTHER'),
   language: Joi.string().min(2).max(50),
   // file_url: Joi.string().uri().max(500),
   // file_path: Joi.string().uri().max(500),

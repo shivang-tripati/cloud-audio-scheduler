@@ -25,7 +25,16 @@ FROM node:22-alpine AS runtime
 WORKDIR /app
 
 # Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+RUN apk add --no-cache \
+    dumb-init \
+    ffmpeg \
+    curl \
+    wget
+
+RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+    -o /usr/local/bin/yt-dlp \
+    && chmod +x /usr/local/bin/yt-dlp
+
 
 # Copy dependencies
 COPY --from=builder /app/node_modules ./node_modules

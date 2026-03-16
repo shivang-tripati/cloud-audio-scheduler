@@ -6,9 +6,10 @@ import { useEffect, useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import type { Audio } from "@/lib/types"
 import { getCurrentUser } from "@/lib/auth"
-import { getAudio, uploadAudio, updateAudio, deleteAudio } from "@/lib/api-client"
+import { getAudio, uploadAudio, updateAudio, deleteAudio, addAudioFromLink } from "@/lib/api-client"
 import { AudioTable } from "@/components/tables/audio-table"
 import { AudioModal } from "@/components/modals/audio-modal"
+import { AudioLinkModal } from "@/components/modals/audio-link-modal"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,6 +30,7 @@ export default function AudioPage() {
   const { toast } = useToast()
   const audioRef = useRef<HTMLAudioElement>(null)
   const [audioFiles, setAudioFiles] = useState<Audio[]>([])
+  const [linkModalOpen, setLinkModalOpen] = useState(false)
   const [loading, setLoading] = useState(true)
   const [currentUser, setCurrentUser] = useState<any>(null)
   const [modalOpen, setModalOpen] = useState(false)
@@ -119,6 +121,24 @@ export default function AudioPage() {
     } finally {
       setLoading(false)
       setModalOpen(false)
+    }
+  }
+
+  const handleAddFromLink = async (url: string) => {
+    try {
+      setLoading(true)
+      const res = await addAudioFromLink(url)
+      if (res.success) {
+        toast({ title: "Success", description: "Audio added successfully" })
+        await loadAudio()
+      } else {
+        toast({ title: "Error", description: res.error?.message || "Failed to add audio", variant: "destructive" })
+      }
+      setLinkModalOpen(false)
+    } catch (error) {
+      toast({ title: "Error", description: "Failed to add audio", variant: "destructive" })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -218,6 +238,9 @@ export default function AudioPage() {
           setSelectedAudio(null)
           setModalOpen(true)
         }}
+        onAddFromLink={() => {
+          setLinkModalOpen(true)
+        }}
         loading={loading}
       />
 
@@ -227,6 +250,12 @@ export default function AudioPage() {
         onOpenChange={setModalOpen}
         onSave={handleSaveAudio}
         loading={loading}
+      />
+
+      <AudioLinkModal
+        open={linkModalOpen}
+        onOpenChange={setLinkModalOpen}
+        onSubmit={handleAddFromLink}
       />
 
       <AlertDialog open={deleteConfirm} onOpenChange={setDeleteConfirm}>

@@ -16,6 +16,7 @@ interface AudioTableProps {
   onDelete: (audio: Audio) => void
   onPlay: (audio: Audio) => void
   onCreateNew: () => void
+  onAddFromLink: () => void
   loading?: boolean
 }
 
@@ -26,6 +27,7 @@ export function AudioTable({
   onDelete,
   onPlay,
   onCreateNew,
+  onAddFromLink,
   loading = false,
 }: AudioTableProps) {
   const canModify = checkPermission(currentUserRole as any, "canUploadAudio")
@@ -47,11 +49,24 @@ export function AudioTable({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Audio Library</CardTitle>
+
         {canModify && (
-          <Button onClick={onCreateNew} size="sm" disabled={loading}>
-            <Plus className="w-4 h-4 mr-2" />
-            Upload Audio
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={onCreateNew} size="sm" disabled={loading}>
+              <Plus className="w-4 h-4 mr-2" />
+              Upload Audio
+            </Button>
+
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={onAddFromLink}
+              disabled={loading}
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add From Link
+            </Button>
+          </div>
         )}
       </CardHeader>
       <CardContent>
