@@ -14,6 +14,7 @@ services:
       - ./uploads:/app/uploads
       - ./var/www/rediocast/downloads:/app/downloads
       - ./logs:/app/logs
+      - ./cookies.txt:/app/cookies.txt
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cas-router.rule=Host(`api.redio.radhakrishnajewellery.in`)"

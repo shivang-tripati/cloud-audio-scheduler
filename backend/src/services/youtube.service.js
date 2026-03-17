@@ -38,6 +38,13 @@ class YoutubeService {
         "--no-playlist",
         "--dump-single-json",
         "--skip-download",
+
+        "--cookies", process.env.YTDLP_COOKIES,
+        "--user-agent", "Mozilla/5.0",
+        "--geo-bypass",
+        "--js-runtimes", "node",
+        "--extractor-args", "youtube:player_client=android",
+
         url
       ];
 
@@ -132,9 +139,16 @@ class YoutubeService {
         "--extract-audio",
         "--audio-format", "mp3",
         "--audio-quality", "5",
+
         "--no-playlist",
         "--restrict-filenames",
+
+        "--cookies", process.env.YTDLP_COOKIES,
+        "--user-agent", "Mozilla/5.0",
+        "--geo-bypass",
         "--js-runtimes", "node",
+        "--extractor-args", "youtube:player_client=android",
+
         "-o", filePath,
         url
       ];
