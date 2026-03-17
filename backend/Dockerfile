@@ -29,7 +29,9 @@ RUN apk add --no-cache \
     dumb-init \
     ffmpeg \
     curl \
-    wget
+    wget \
+    python3 \
+    py3-pip
 
 RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
     -o /usr/local/bin/yt-dlp \
