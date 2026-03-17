@@ -31,27 +31,9 @@ class YoutubeService {
     }
   }
 
-  getMetadata(url) {
+  _executeYtDlp(args, context) {
     return new Promise((resolve, reject) => {
-
-      const args = [
-        "--no-playlist",
-        "--dump-single-json",
-        "--skip-download",
-
-        "--cookies", process.env.YTDLP_COOKIES,
-        "--user-agent", "Mozilla/5.0",
-        "--geo-bypass",
-        "--js-runtimes", "node",
-        "--extractor-args", "youtube:player_client=android",
-
-        url
-      ];
-
-      logger.info("yt-dlp extracting metadata", { url });
-
       const proc = spawn(this.ytdlpPath, args, { windowsHide: true });
-
       let output = "";
       let errorOutput = "";
 
@@ -64,31 +46,67 @@ class YoutubeService {
       });
 
       proc.on("close", (code) => {
-
-        if (code !== 0) {
-          logger.error("yt-dlp metadata failed", { code, errorOutput });
-          return reject(new Error(`yt-dlp metadata extraction failed: ${errorOutput}`));
+        if (code === 0) {
+          resolve(output);
+        } else {
+          reject(new Error(`yt-dlp ${context} failed: code ${code}, ${errorOutput}`));
         }
-
-        try {
-
-          const meta = JSON.parse(output);
-
-          resolve({
-            title: meta.title,
-            duration: meta.duration,
-            uploader: meta.uploader
-          });
-
-        } catch (err) {
-          reject(new Error("Failed to parse metadata JSON"));
-        }
-
       });
 
-      proc.on("error", reject);
-
+      proc.on("error", (err) => {
+        reject(new Error(`yt-dlp spawn error: ${err.message}`));
+      });
     });
+  }
+
+  async getMetadata(url) {
+    const buildArgs = (useAndroid) => {
+      const args = [
+        "--no-playlist",
+        "--dump-single-json",
+        "--skip-download"
+      ];
+      if (process.env.YTDLP_COOKIES) {
+        args.push("--cookies", process.env.YTDLP_COOKIES);
+      }
+      args.push("--user-agent", "Mozilla/5.0", "--geo-bypass", "--js-runtimes", "node");
+      if (useAndroid) {
+        args.push("--extractor-args", "youtube:player_client=android");
+      }
+      args.push(url);
+      return args;
+    };
+
+    let output;
+    try {
+      logger.info("yt-dlp extracting metadata (Attempt 1)", { url });
+      output = await this._executeYtDlp(buildArgs(false), "metadata");
+    } catch (error1) {
+      logger.warn("yt-dlp metadata attempt 1 failed, retrying with android client", { error: error1.message });
+      try {
+        logger.info("yt-dlp extracting metadata (Attempt 2 - Android)", { url });
+        output = await this._executeYtDlp(buildArgs(true), "metadata fallback");
+      } catch (error2) {
+        logger.error("yt-dlp metadata failed permanently", { 
+          url,
+          error1: error1.message,
+          error2: error2.message 
+        });
+        throw new Error("⚠️ This video cannot be processed due to YouTube restrictions. Try another video.");
+      }
+    }
+
+    try {
+      const meta = JSON.parse(output);
+      return {
+        title: meta.title,
+        duration: meta.duration,
+        uploader: meta.uploader
+      };
+    } catch (err) {
+      logger.error("Failed to parse metadata JSON", { error: err.message });
+      throw new Error("Failed to parse metadata JSON");
+    }
   }
 
   enqueue(task) {
@@ -129,56 +147,47 @@ class YoutubeService {
 
   }
 
-  runDownload = (url, filePath) => {
-    return new Promise((resolve, reject) => {
-
-      logger.info("Starting yt-dlp download", { url, filePath });
-
+  runDownload = async (url, filePath) => {
+    const buildArgs = (useAndroid) => {
       const args = [
         "-f", "bestaudio",
         "--extract-audio",
         "--audio-format", "mp3",
         "--audio-quality", "5",
-
         "--no-playlist",
-        "--restrict-filenames",
-
-        "--cookies", process.env.YTDLP_COOKIES,
-        "--user-agent", "Mozilla/5.0",
-        "--geo-bypass",
-        "--js-runtimes", "node",
-        "--extractor-args", "youtube:player_client=android",
-
-        "-o", filePath,
-        url
+        "--restrict-filenames"
       ];
+      if (process.env.YTDLP_COOKIES) {
+        args.push("--cookies", process.env.YTDLP_COOKIES);
+      }
+      args.push("--user-agent", "Mozilla/5.0", "--geo-bypass", "--js-runtimes", "node");
+      if (useAndroid) {
+        args.push("--extractor-args", "youtube:player_client=android");
+      }
+      args.push("-o", filePath, url);
+      return args;
+    };
 
-      const proc = spawn(this.ytdlpPath, args, { windowsHide: true });
-
-      let errorOutput = "";
-
-      proc.stderr.on("data", (data) => {
-        errorOutput += data.toString();
-      });
-
-      proc.on("close", (code) => {
-
-        if (code === 0) {
-          logger.info("yt-dlp download completed", { filePath });
-          resolve();
-        } else {
-          logger.error("yt-dlp download failed", { code, errorOutput });
-          reject(new Error(`yt-dlp download failed: ${errorOutput}`));
-        }
-
-      });
-
-      proc.on("error", (err) => {
-        logger.error("yt-dlp spawn error", { error: err.message });
-        reject(err);
-      });
-
-    });
+    try {
+      logger.info("Starting yt-dlp download (Attempt 1)", { url, filePath });
+      await this._executeYtDlp(buildArgs(false), "download");
+      logger.info("yt-dlp download completed on attempt 1", { filePath });
+    } catch (error1) {
+      logger.warn("yt-dlp download attempt 1 failed, retrying with android client", { error: error1.message });
+      try {
+        logger.info("Starting yt-dlp download (Attempt 2 - Android)", { url, filePath });
+        await this._executeYtDlp(buildArgs(true), "download fallback");
+        logger.info("yt-dlp download completed on attempt 2", { filePath });
+      } catch (error2) {
+        logger.error("yt-dlp download failed permanently", { 
+          url,
+          filePath,
+          error1: error1.message,
+          error2: error2.message 
+        });
+        throw new Error("⚠️ This video cannot be processed due to YouTube restrictions. Try another video.");
+      }
+    }
   };
 
   async importLink(url) {
