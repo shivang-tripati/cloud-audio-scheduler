@@ -41,10 +41,13 @@ export default function DeviceMonitor({ liveDevices = [] }: any) {
 
             b.devices.sort((a: any, b: any) => {
 
-                if (a.status === "ONLINE" && b.status !== "ONLINE") return -1;
-                if (a.status !== "ONLINE" && b.status === "ONLINE") return 1;
+                if (a.status?.toUpperCase() === "ONLINE" && b.status?.toUpperCase() !== "ONLINE") return -1;
+                if (a.status?.toUpperCase() !== "ONLINE" && b.status?.toUpperCase() === "ONLINE") return 1;
 
-                return a.device_name.localeCompare(b.device_name);
+                const nameA = a.device_name || "Unknown Device";
+                const nameB = b.device_name || "Unknown Device";
+
+                return nameA.localeCompare(nameB);
 
             });
 

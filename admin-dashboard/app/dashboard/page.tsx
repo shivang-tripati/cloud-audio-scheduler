@@ -26,6 +26,8 @@ export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const [dataLoaded, setDataLoaded] = useState(false);
+
   useEffect(() => {
     const loadStatic = async () => {
       try {
@@ -37,15 +39,17 @@ export default function DashboardPage() {
         setSchedules(schedulesRes.data || []);
       } catch (e) {
         console.error("Dashboard Data Error:", e);
+      } finally {
+        setDataLoaded(true);
       }
     };
     loadStatic();
   }, []);
 
   useEffect(() => {
-    if (!branches.length && !schedules.length) return;
+    if (!dataLoaded) return;
 
-    const activeDevices = liveDevices.filter((d) => d.status === "ONLINE").length;
+    const activeDevices = liveDevices.filter((d) => d?.status?.toUpperCase() === "ONLINE").length;
     const prayerConfigured = schedules.some(
       (s) => s.schedule_type === "DAILY_PRAYER" && s.is_active
     );
@@ -57,7 +61,7 @@ export default function DashboardPage() {
       prayerConfigured,
     });
     setLoading(false);
-  }, [liveDevices, branches, schedules]);
+  }, [liveDevices, branches, schedules, dataLoaded]);
 
   if (loading) {
     return (
