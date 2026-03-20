@@ -365,15 +365,15 @@ export function ScheduleModal({
                     <input
                       type="checkbox"
                       className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                      checked={formData.target_values.map(String).includes(String(branch.id))}
+                      checked={formData.target_values.map(String).includes(String(branch.branch_code))}
                       onChange={(e) => {
                         const checked = e.target.checked
-                        const branchId = String(branch.id)
+                        const branchCode = String(branch.branch_code)
                         setFormData((prev) => ({
                           ...prev,
                           target_values: checked
-                            ? [...prev.target_values, branchId]
-                            : prev.target_values.filter((id) => String(id) !== branchId),
+                            ? [...prev.target_values, branchCode]
+                            : prev.target_values.filter((id) => String(id) !== branchCode),
                         }))
                       }}
                     />
