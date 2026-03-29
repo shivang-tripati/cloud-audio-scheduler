@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import type { Audio } from "@/lib/types"
 import { getCurrentUser } from "@/lib/auth"
-import { getAudio, uploadAudio, updateAudio, deleteAudio, addAudioFromLink } from "@/lib/api-client"
+import { getAudio, uploadAudio, updateAudio, deleteAudio, addAudioFromLink, getBranches, addToPlaylist } from "@/lib/api-client"
 import { AudioTable } from "@/components/tables/audio-table"
 import { AudioModal } from "@/components/modals/audio-modal"
 import { AudioLinkModal } from "@/components/modals/audio-link-modal"
@@ -39,6 +39,7 @@ export default function AudioPage() {
   const [audioToDelete, setAudioToDelete] = useState<Audio | null>(null)
   const [playingId, setPlayingId] = useState<string | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [branches, setBranches] = useState<any[]>([])
 
   useEffect(() => {
     const user = getCurrentUser()
@@ -48,7 +49,62 @@ export default function AudioPage() {
     }
     setCurrentUser(user)
     loadAudio()
+    loadBranches()
   }, [router])
+
+  const loadBranches = async () => {
+    try {
+      const res = await getBranches()
+      if (res.success && res.data) {
+        setBranches(res.data)
+      }
+    } catch (e) {
+      console.error("Failed to load branches")
+    }
+  }
+
+  const handleAddToPlaylist = async (audio: Audio, branchId: string | 'ALL') => {
+    try {
+      setLoading(true)
+      if (branchId === 'ALL') {
+        let successCount = 0
+        let alreadyInCount = 0
+
+        for (const b of branches) {
+          const res = await addToPlaylist(b.id, audio.id)
+          if (res.success) {
+            successCount++
+          } else if (res.error?.message?.toLowerCase().includes("already")) {
+            alreadyInCount++
+          }
+        }
+
+        if (successCount === 0 && alreadyInCount > 0) {
+          toast({ title: "Playlist Update", description: `Audio is already present in all ${alreadyInCount} branch playlists.` })
+        } else if (successCount > 0) {
+          toast({ title: "Success", description: `Added to ${successCount} branch(es). ` + (alreadyInCount > 0 ? `(Already active in ${alreadyInCount})` : "") })
+        } else {
+          toast({ title: "Error", description: "Failed to add to branch playlists.", variant: "destructive" })
+        }
+      } else {
+        const res = await addToPlaylist(branchId, audio.id)
+        if (res.success) {
+          toast({ title: "Success", description: "Added to branch playlist" })
+        } else {
+          const isDuplicate = res.error?.message?.toLowerCase().includes("already")
+          toast({
+            title: isDuplicate ? "Playlist Update" : "Error",
+            description: res.error?.message || "Failed to add to playlist",
+            variant: isDuplicate ? "default" : "destructive"
+          })
+        }
+      }
+    } catch (error) {
+      toast({ title: "Error", description: "Failed to add to playlist", variant: "destructive" })
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const loadAudio = async () => {
     try {
@@ -224,7 +280,9 @@ export default function AudioPage() {
 
       <AudioTable
         audio={audioFiles}
+        branches={branches}
         currentUserRole={currentUser?.role || ""}
+        onAddToPlaylist={handleAddToPlaylist}
         onEdit={(audio) => {
           setSelectedAudio(audio)
           setModalOpen(true)

@@ -7,18 +7,28 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { Edit2, Trash2, Plus, Play, Search, X, SlidersHorizontal } from "lucide-react"
+import { Edit2, Trash2, Plus, Play, Search, X, SlidersHorizontal, ListPlus } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { checkPermission } from "@/lib/rbac"
 import { formatDuration } from "@/lib/validators"
 
 interface AudioTableProps {
   audio: Audio[]
+  branches?: any[]
   currentUserRole: string
   onEdit: (audio: Audio) => void
   onDelete: (audio: Audio) => void
   onPlay: (audio: Audio) => void
   onCreateNew: () => void
   onAddFromLink: () => void
+  onAddToPlaylist?: (audio: Audio, branchId: string | 'ALL') => void
   loading?: boolean
 }
 
@@ -27,12 +37,14 @@ const LANGUAGES = ["ALL", "Hindi", "English", "Gujarati", "Bengali", "Marathi", 
 
 export function AudioTable({
   audio,
+  branches = [],
   currentUserRole,
   onEdit,
   onDelete,
   onPlay,
   onCreateNew,
   onAddFromLink,
+  onAddToPlaylist,
   loading = false,
 }: AudioTableProps) {
   const canModify = checkPermission(currentUserRole as any, "canUploadAudio")
@@ -258,7 +270,28 @@ export function AudioTable({
                       </Button>
                     </TableCell>
                     {canModify && (
-                      <TableCell className="text-right space-x-2">
+                      <TableCell className="text-right space-x-1">
+                        {onAddToPlaylist && branches.length > 0 && (
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="sm" disabled={loading} title="Add to Playlist">
+                                <ListPlus className="w-4 h-4 text-emerald-600 dark:text-emerald-500" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-48 bg-background/95 backdrop-blur-xl border-border/50">
+                              <DropdownMenuLabel>Add to Playlist</DropdownMenuLabel>
+                              <DropdownMenuItem onClick={() => onAddToPlaylist(file, 'ALL')} className="font-semibold text-primary focus:text-primary focus:bg-primary/10">
+                                All Branches
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator />
+                              {branches.map(b => (
+                                <DropdownMenuItem key={b.id} onClick={() => onAddToPlaylist(file, String(b.id))}>
+                                  {b.name}
+                                </DropdownMenuItem>
+                              ))}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        )}
                         <Button variant="ghost" size="sm" onClick={() => onEdit(file)} disabled={loading}>
                           <Edit2 className="w-4 h-4" />
                         </Button>

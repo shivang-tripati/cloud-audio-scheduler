@@ -202,10 +202,10 @@ export const getBranchPlaylist = (branchId: string | number) =>
   apiFetch(`/branches/${branchId}/playlist/manage`)
 
 // POST /api/branches/:branchId/playlist
-export const addToPlaylist = (branchId: string | number, audioId: number) =>
+export const addToPlaylist = (branchId: string | number, audioId: string | number) =>
   apiFetch<{ message: string }>(`/branches/${branchId}/playlist`, {
     method: "POST",
-    body: JSON.stringify({ audio_id: audioId }),
+    body: JSON.stringify({ audio_id: Number(audioId) }),
   })
 
 // DELETE /api/branches/:branchId/playlist/:itemId
