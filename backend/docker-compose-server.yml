@@ -61,12 +61,15 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.downloads-router.rule=Host(`api.redio.radhakrishnajewellery.in`) && PathPrefix(`/downloads`)"
-      - "traefik.http.routers.uploads-router.rule=Host(`hms.radhakrishnajewellery.in`) && PathPrefix(`/uploads`)"
-      - "traefik.http.routers.downloads-router.priority=100"
       - "traefik.http.routers.downloads-router.entrypoints=web,websecure"
       - "traefik.http.routers.downloads-router.tls=true"
       - "traefik.http.routers.downloads-router.tls.certresolver=cert-resolver"
+      - "traefik.http.routers.downloads-router.priority=10000"
+      - "traefik.http.middlewares.downloads-strip.stripprefix.prefixes=/downloads"
+      - "traefik.http.routers.downloads-router.middlewares=downloads-strip"
+      - "traefik.http.routers.uploads-router.rule=Host(`hms.radhakrishnajewellery.in`) && PathPrefix(`/uploads`)"
       - "traefik.http.middlewares.uploads-strip.stripprefix.prefixes=/uploads"
+      - "traefik.http.routers.uploads-router.middlewares=uploads-strip"
       - "traefik.http.services.downloads-service.loadbalancer.server.port=80"
       - "traefik.docker.network=cas-network"
 
