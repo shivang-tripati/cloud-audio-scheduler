@@ -66,8 +66,6 @@ services:
       - "traefik.http.routers.downloads-router.entrypoints=web,websecure"
       - "traefik.http.routers.downloads-router.tls=true"
       - "traefik.http.routers.downloads-router.tls.certresolver=cert-resolver"
-      - "traefik.http.routers.downloads-router.middlewares=downloads-strip"
-      - "traefik.http.middlewares.downloads-strip.stripprefix.prefixes=/downloads"
       - "traefik.http.middlewares.uploads-strip.stripprefix.prefixes=/uploads"
       - "traefik.http.services.downloads-service.loadbalancer.server.port=80"
       - "traefik.docker.network=cas-network"
